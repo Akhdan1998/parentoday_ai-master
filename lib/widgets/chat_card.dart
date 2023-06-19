@@ -8,41 +8,28 @@ class ChatUserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.all(15),
-        color: Colors.white,
-        // constraints: BoxConstraints(maxWidth: 800),
-
-        // color: 'FFFFFF'.toColor(),
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          // width: (MediaQuery.of(context).size.width <= 360)
-          //     ? (MediaQuery.of(context).size.width - 2 * 20)
-          //     : 800,
-          // color: Colors.grey,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Image.asset('assets/mom.png', scale: 18),
-              SizedBox(width: 10),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                child: Text(
-                  '${aiModel.content ?? ''}',
-                  style: GoogleFonts.poppins().copyWith(
-                    fontWeight: FontWeight.w300,
-                    color: '484848'.toColor(),
-                    fontSize: 12,
-                  ),
-                ),
+    return Container(
+      padding: EdgeInsets.all(15),
+      color: Colors.white,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Image.asset('assets/mom.png', scale: 18),
+          SizedBox(width: 10),
+          Container(
+            constraints: BoxConstraints(maxWidth: 800),
+            width: MediaQuery.of(context).size.width - 69,
+            child: Text(
+              '${aiModel.content ?? ''}',
+              style: GoogleFonts.poppins().copyWith(
+                fontWeight: FontWeight.w300,
+                color: '484848'.toColor(),
+                fontSize: 12,
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -57,35 +44,28 @@ class ChatRobotCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.all(15),
-      // color: Colors.red,
       color: 'FFF4F4'.toColor(),
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        // width: (MediaQuery.of(context).size.width <= 360)
-        //     ? (MediaQuery.of(context).size.width - 2 * 20)
-        //     : 800,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.asset('assets/parentoday.png', scale: 2),
-            SizedBox(width: 10),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              child: Text(
-                aiModel.content ?? '',
-                style: GoogleFonts.poppins().copyWith(
-                  fontWeight: FontWeight.w300,
-                  color: '484848'.toColor(),
-                  height: 1.7,
-                  fontSize: 12,
-                ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Image.asset('assets/parentoday.png', scale: 2),
+          SizedBox(width: 10),
+          Container(
+            constraints: BoxConstraints(maxWidth: 800),
+            width: MediaQuery.of(context).size.width - 65,
+            child: Text(
+              aiModel.content ?? '',
+              style: GoogleFonts.poppins().copyWith(
+                fontWeight: FontWeight.w300,
+                color: '484848'.toColor(),
+                height: 1.7,
+                fontSize: 12,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

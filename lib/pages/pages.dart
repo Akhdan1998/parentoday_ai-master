@@ -7,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:http/http.dart' as http;
 import 'package:supercharged/supercharged.dart';
-
 import '../cubits/ai_cubit.dart';
 import '../models/models.dart';
 import '../widgets/widgets.dart';
