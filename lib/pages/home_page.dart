@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Text(
-                      'Silahkan konsultasi seputar parenting',
+                      'Menjawab semua masalah parentingmu dengan cepat dan efisien',
                       style: GoogleFonts.poppins().copyWith(
                         fontWeight: FontWeight.w300,
                         color: '959595'.toColor(),

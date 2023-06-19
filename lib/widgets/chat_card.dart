@@ -11,14 +11,17 @@ class ChatUserCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {},
       child: Container(
-        width: MediaQuery.of(context).size.width,
+        // width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.all(15),
         color: Colors.white,
+        constraints: BoxConstraints(maxWidth: 800),
+
         // color: 'FFFFFF'.toColor(),
         child: Container(
-          width: (MediaQuery.of(context).size.width <= 360)
-              ? (MediaQuery.of(context).size.width - 2 * 20)
-              : 800,
+          // width: MediaQuery.of(context).size.width - 2 * 20,
+          // width: (MediaQuery.of(context).size.width <= 360)
+          //     ? (MediaQuery.of(context).size.width - 2 * 20)
+          //     : 800,
           color: Colors.grey,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -27,7 +30,7 @@ class ChatUserCard extends StatelessWidget {
               Image.asset('assets/mom.png', scale: 18),
               SizedBox(width: 10),
               Container(
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery.of(context).size.width - 69,
                 child: Text(
                   '${aiModel.content ?? ''}',
                   style: GoogleFonts.poppins().copyWith(
@@ -59,9 +62,10 @@ class ChatRobotCard extends StatelessWidget {
       // color: Colors.red,
       color: 'FFF4F4'.toColor(),
       child: Container(
-        width: (MediaQuery.of(context).size.width <= 360)
-            ? (MediaQuery.of(context).size.width - 2 * 20)
-            : 800,
+        width: MediaQuery.of(context).size.width,
+        // width: (MediaQuery.of(context).size.width <= 360)
+        //     ? (MediaQuery.of(context).size.width - 2 * 20)
+        //     : 800,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,7 +73,7 @@ class ChatRobotCard extends StatelessWidget {
             Image.asset('assets/parentoday.png', scale: 2),
             SizedBox(width: 10),
             Container(
-              width: MediaQuery.of(context).size.width - 675,
+              width: MediaQuery.of(context).size.width,
               child: Text(
                 aiModel.content ?? '',
                 style: GoogleFonts.poppins().copyWith(
