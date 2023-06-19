@@ -127,148 +127,139 @@ class _HomePageState extends State<HomePage> {
           // dragStartBehavior: DragStartBehavior.down,
           // controller: controller,
           reverse: true,
-          child: Container(
-            height: MediaQuery.of(context).size.height,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                BlocBuilder<AiCubit, AiState>(
-                  builder: (context, snapshot) {
-                    if (snapshot is AiLoaded) {
-                      if (snapshot.ai != null) {
-                        return Column(
-                          children: snapshot.ai!
-                              .mapIndexed(
-                                (int index, e) => (e.role == "user")
-                                ? ChatUserCard(e, '')
-                                : ChatRobotCard(e, ''),
-                          )
-                              .toList(),
-                        );
-                      } else {
-                        return SizedBox();
-                      }
-                    } else {
-                      return SizedBox();
-                    }
-                  },
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 1,
-                        blurRadius: 1,
-                        offset: Offset(0, 0), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  height: 122,
-                  padding: EdgeInsets.only(top: 11, bottom: 20, right: 16, left: 16),
-                  child: Column(
-                    children: [
-                      (show == true)
-                          ? Text(
-                        'Lorem ipsum dolor sit amet consectetur.',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.poppins().copyWith(
-                          fontWeight: FontWeight.w300,
-                          color: '959595'.toColor(),
-                          fontSize: 10,
-                        ),
-                      )
-                          : SizedBox(),
-                      SizedBox(height: 5),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            alignment: Alignment.topCenter,
-                            constraints: BoxConstraints(maxWidth: 800),
-                            height: 35,
-                            width: MediaQuery.of(context).size.width - 78,
-                            child: TextField(
-                              cursorColor: 'FF6969'.toColor(),
-                              controller: pertanyaan,
-                              decoration: InputDecoration(
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                                  borderSide:
-                                  BorderSide(width: 1, color: 'FF6969'.toColor()),
-                                ),
-                                contentPadding:
-                                EdgeInsets.only(left: 10, top: 5, bottom: 5),
-                                hintStyle: GoogleFonts.poppins().copyWith(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w300,
-                                  color: '989797'.toColor(),
-                                ),
-                                hintText: 'Tanya seputar parenting...',
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 10),
-                          GestureDetector(
-                            onTap: () async {
-                              if (pertanyaan.text.isNotEmpty) {
-                                setState(() {
-                                  isLoading = true;
-                                  show = true;
-                                  context.loaderOverlay.show();
-                                });
-                                await cari().whenComplete(() {
-                                  setState(() {
-                                    isLoading = false;
-                                    show = false;
-                                    context.loaderOverlay.hide();
-                                    pertanyaan.text = '';
-                                  });
-                                });
-                              }
-                            },
-                            child: Container(
-                              padding: EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: 'FF6969'.toColor(),
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                              child: isLoading
-                                  ? Container(
-                                width: 20,
-                                height: 20,
-                                child: Center(
-                                  child: CircularProgressIndicator(
-                                      color: Colors.white, strokeWidth: 2),
-                                ),
-                              )
-                                  : Icon(Icons.send, color: Colors.white, size: 20),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 5),
-                      Text(
-                        'Lorem ipsum dolor sit amet consectetur. Penatibus sagittis fermentum risus neque. Cras vestibulum blandit sit scelerisque.',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.poppins().copyWith(
-                          fontWeight: FontWeight.w300,
-                          color: '959595'.toColor(),
-                          fontSize: 10,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
+          child: BlocBuilder<AiCubit, AiState>(
+            builder: (context, snapshot) {
+              if (snapshot is AiLoaded) {
+                if (snapshot.ai != null) {
+                  return Column(
+                    children: snapshot.ai!
+                        .mapIndexed(
+                          (int index, e) => (e.role == "user")
+                          ? ChatUserCard(e, '')
+                          : ChatRobotCard(e, ''),
+                    )
+                        .toList(),
+                  );
+                } else {
+                  return SizedBox();
+                }
+              } else {
+                return SizedBox();
+              }
+            },
           ),
         ),
-        //bottomNavigationBar: ,
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 1,
+                blurRadius: 1,
+                offset: Offset(0, 0), // changes position of shadow
+              ),
+            ],
+          ),
+          height: 122,
+          padding: EdgeInsets.only(top: 11, bottom: 20, right: 16, left: 16),
+          child: Column(
+            children: [
+              (show == true)
+                  ? Text(
+                'Sebentar ya Moms, kami sedang mencarikan jawaban dari pertanyaan kamu...',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.poppins().copyWith(
+                  fontWeight: FontWeight.w300,
+                  color: '959595'.toColor(),
+                  fontSize: 10,
+                ),
+              )
+                  : SizedBox(),
+              SizedBox(height: 5),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    alignment: Alignment.topCenter,
+                    constraints: BoxConstraints(maxWidth: 800),
+                    height: 35,
+                    width: MediaQuery.of(context).size.width - 78,
+                    child: TextField(
+                      cursorColor: 'FF6969'.toColor(),
+                      controller: pertanyaan,
+                      decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                          borderSide:
+                          BorderSide(width: 1, color: 'FF6969'.toColor()),
+                        ),
+                        contentPadding:
+                        EdgeInsets.only(left: 10, top: 5, bottom: 5),
+                        hintStyle: GoogleFonts.poppins().copyWith(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w300,
+                          color: '989797'.toColor(),
+                        ),
+                        hintText: 'Tanya seputar parenting...',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  GestureDetector(
+                    onTap: () async {
+                      if (pertanyaan.text.isNotEmpty) {
+                        setState(() {
+                          isLoading = true;
+                          show = true;
+                          context.loaderOverlay.show();
+                        });
+                        await cari().whenComplete(() {
+                          setState(() {
+                            isLoading = false;
+                            show = false;
+                            context.loaderOverlay.hide();
+                            pertanyaan.text = '';
+                          });
+                        });
+                      }
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: 'FF6969'.toColor(),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: isLoading
+                          ? Container(
+                        width: 20,
+                        height: 20,
+                        child: Center(
+                          child: CircularProgressIndicator(
+                              color: Colors.white, strokeWidth: 2),
+                        ),
+                      )
+                          : Icon(Icons.send, color: Colors.white, size: 20),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 5),
+              Text(
+                'Do not completely rely on the answers provided by this AI without confirming them with other reliable sources.',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.poppins().copyWith(
+                  fontWeight: FontWeight.w300,
+                  color: '959595'.toColor(),
+                  fontSize: 10,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
