@@ -9,6 +9,7 @@ class ChatUserCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.all(15),
       color: Colors.white,
       child: Row(
@@ -19,6 +20,7 @@ class ChatUserCard extends StatelessWidget {
           SizedBox(width: 10),
           Container(
             constraints: BoxConstraints(maxWidth: 800),
+            // width: MediaQuery.of(context).size.width - 640,
             width: MediaQuery.of(context).size.width - 69,
             child: Text(
               '${aiModel.content ?? ''}',
@@ -44,6 +46,7 @@ class ChatRobotCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.all(15),
       color: 'FFF4F4'.toColor(),
       child: Row(
@@ -54,7 +57,7 @@ class ChatRobotCard extends StatelessWidget {
           SizedBox(width: 10),
           Container(
             constraints: BoxConstraints(maxWidth: 800),
-            width: MediaQuery.of(context).size.width - 65,
+            width: MediaQuery.of(context).size.width - 69,
             child: Text(
               aiModel.content ?? '',
               style: GoogleFonts.poppins().copyWith(

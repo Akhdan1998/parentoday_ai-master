@@ -74,7 +74,6 @@ class _HomePageState extends State<HomePage> {
           automaticallyImplyLeading: false,
           elevation: 1,
           title: Container(
-            // padding: EdgeInsets.only(top: 10, bottom: 10),
             constraints: BoxConstraints(maxWidth: 800),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -91,7 +90,8 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width - 100,
+                      // constraints: BoxConstraints(maxWidth: 800),
+                      width: 330,
                       child: Text(
                         'Menjawab semua masalah parentingmu dengan cepat dan efisien', maxLines: 2,
                         style: GoogleFonts.poppins().copyWith(
@@ -131,13 +131,14 @@ class _HomePageState extends State<HomePage> {
         body: Container(
           height: MediaQuery.of(context).size.height,
           child: Stack(
+            alignment: Alignment.center,
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Positioned(
                 top: 0,
                 child: Container(
                   height: MediaQuery.of(context).size.height - 60 - 80,
-                  padding: EdgeInsets.only(bottom: 90),
+                  padding: EdgeInsets.only(bottom: 40),
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     reverse: true,
@@ -181,7 +182,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ],
                   ),
-                  height: 122,
+                  height: 125,
                   padding:
                       EdgeInsets.only(top: 11, bottom: 20, right: 16, left: 16),
                   child: Column(
