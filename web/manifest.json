@@ -1,11 +1,11 @@
 {
-    "name": "parentoday_ai",
-    "short_name": "parentoday_ai",
+    "name": "AI Parentoday",
+    "short_name": "AI Parentoday",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "AI Parentoday",
+    "description": "Konsultasi seputar parenting",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
