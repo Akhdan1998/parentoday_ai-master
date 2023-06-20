@@ -74,6 +74,7 @@ class _HomePageState extends State<HomePage> {
           automaticallyImplyLeading: false,
           elevation: 1,
           title: Container(
+            width: MediaQuery.of(context).size.width,
             constraints: BoxConstraints(maxWidth: 800),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -91,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Container(
                       // constraints: BoxConstraints(maxWidth: 800),
-                      width: 330,
+                      width: 290,
                       child: Text(
                         'Menjawab semua masalah parentingmu dengan cepat dan efisien', maxLines: 2,
                         style: GoogleFonts.poppins().copyWith(
@@ -171,6 +172,7 @@ class _HomePageState extends State<HomePage> {
                 right: 0,
                 left: 0,
                 child: Container(
+                  width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     boxShadow: [
@@ -207,6 +209,26 @@ class _HomePageState extends State<HomePage> {
                             height: 35,
                             width: MediaQuery.of(context).size.width - 78,
                             child: TextField(
+                              onSubmitted: (value) async {
+                                focusNode.unfocus();
+
+                                if (pertanyaan.text.isNotEmpty) {
+                                  setState(() {
+                                    isLoading = true;
+                                    show = true;
+                                    context.loaderOverlay.show();
+                                  });
+                                  await cari().whenComplete(() {
+                                    setState(() {
+                                      isLoading = false;
+                                      show = false;
+                                      context.loaderOverlay.hide();
+                                      pertanyaan.text = '';
+                                      // Navigator.pop(context);
+                                    });
+                                  });
+                                }
+                              },
                               focusNode: focusNode,
                               textCapitalization: TextCapitalization.sentences,
                               cursorColor: 'FF6969'.toColor(),
