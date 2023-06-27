@@ -6,7 +6,7 @@ import 'package:parentoday_ai/models/data_user.dart';
 import '../models/api_return_data.dart';
 
 class DataUserServices {
-  static Future<ApiReturnData<List<DataUser>>?> getData(String token,
+  static Future<ApiReturnData<DataUser>?> getData(String token,
       {http.Client? client}) async {
     String baseUrl = 'https://dashboard.parentoday.com/api/user';
     if (client == null) {
@@ -24,10 +24,10 @@ class DataUserServices {
     }
     var data = jsonDecode(response.body);
 //jika backand berbentuk list
-    List<DataUser> value =
-        (data['data'] as Iterable).map((e) => DataUser.fromJson(e)).toList();
+//     List<DataUser> value =
+//         (data['data'] as Iterable).map((e) => DataUser.fromJson(e)).toList();
 //jika backand tidak berbentuk list
-    //CommunityGroup value1 = CommunityGroup.fromJson(data['data']);
+    DataUser value = DataUser.fromJson(data['data']);
     return ApiReturnData(value: value);
   }
 }

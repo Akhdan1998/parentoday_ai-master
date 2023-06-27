@@ -1,29 +1,43 @@
 part of 'widgets.dart';
 
-class ChatUserCard extends StatelessWidget {
+class ChatUserCard extends StatefulWidget {
   final Ai aiModel;
   final String token;
 
-  ChatUserCard(this.aiModel, this.token);
+  const ChatUserCard(this.aiModel, this.token, {super.key});
 
+  @override
+  State<ChatUserCard> createState() => _ChatUserCardState();
+}
+
+class _ChatUserCardState extends State<ChatUserCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset('assets/mom.png', scale: 18),
-          SizedBox(width: 10),
           Container(
-            constraints: BoxConstraints(maxWidth: 800),
+            width: 26,
+            height: 26,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(3),
+              image: DecorationImage(
+                image: NetworkImage(imageUrl ?? ''),
+              ),
+            ),
+          ),
+          const SizedBox(width: 10),
+          Container(
+            constraints: const BoxConstraints(maxWidth: 800),
             // width: MediaQuery.of(context).size.width - 640,
             width: MediaQuery.of(context).size.width - 69,
             child: Text(
-              '${aiModel.content ?? ''}',
+              widget.aiModel.content ?? '',
               style: GoogleFonts.poppins().copyWith(
                 fontWeight: FontWeight.w300,
                 color: '484848'.toColor(),
@@ -41,22 +55,22 @@ class ChatRobotCard extends StatelessWidget {
   final Ai aiModel;
   final String token;
 
-  ChatRobotCard(this.aiModel, this.token);
+  const ChatRobotCard(this.aiModel, this.token, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       color: 'FFF4F4'.toColor(),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Image.asset('assets/parentoday.png', scale: 2),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Container(
-            constraints: BoxConstraints(maxWidth: 800),
+            constraints: const BoxConstraints(maxWidth: 800),
             width: MediaQuery.of(context).size.width - 69,
             child: Text(
               aiModel.content ?? '',

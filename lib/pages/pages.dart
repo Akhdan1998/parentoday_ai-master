@@ -1,8 +1,9 @@
 import 'dart:convert';
-
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:http/http.dart' as http;
@@ -13,7 +14,10 @@ import 'package:parentoday_ai/models/data_user.dart';
 import 'package:parentoday_ai/models/data_user.dart';
 import 'package:supercharged/supercharged.dart';
 import '../cubits/ai_cubit.dart';
+import '../models/auth.dart';
 import '../models/models.dart';
+import '../services/LogReg_services.dart';
 import '../widgets/widgets.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 part 'home_page.dart';
+part 'login_page.dart';

@@ -1,38 +1,43 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:parentoday_ai/pages/pages.dart';
 import 'package:supercharged/supercharged.dart';
 
 import 'cubits/ai_cubit.dart';
+import 'cubits/datauser_dart_cubit.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+        apiKey: "AIzaSyAg6n3kIS7eiabH4a-MtpL5eoDVE90EB84",
+        authDomain: "master-ai-79740.firebaseapp.com",
+        projectId: "master-ai-79740",
+        storageBucket: "master-ai-79740.appspot.com",
+        messagingSenderId: "195874678073",
+        appId: "1:195874678073:web:67479ab569f676a84034e8",
+        measurementId: "G-JSGV31T0LN"
+    ),
+  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => AiCubit()),
+        BlocProvider(create: (_) => DataUserCubit()),
       ],
-      child: MaterialApp(
+      child: GetMaterialApp(
         color: 'FF6969'.toColor(),
         debugShowCheckedModeBanner: false,
-        // title: 'Flutter Demo',
-        // theme: ThemeData(
-        //   // This is the theme of your application.
-        //   //
-        //   // Try running your application with "flutter run". You'll see the
-        //   // application has a blue toolbar. Then, without quitting the app, try
-        //   // changing the primarySwatch below to Colors.green and then invoke
-        //   // "hot reload" (press "r" in the console where you ran "flutter run",
-        //   // or simply save your changes to "hot reload" in a Flutter IDE).
-        //   // Notice that the counter didn't reset back to zero; the application
-        //   // is not restarted.
-        //   primarySwatch: Colors.blue,
-        // ),
-        home: HomePage('1354|r5uOe7c4yC14CDvrkeTfP73s0AIrkG01EKos4lC4'),
+        home: const LoginPage('1354|r5uOe7c4yC14CDvrkeTfP73s0AIrkG01EKos4lC4'),
       ),
     );
   }

@@ -3,7 +3,7 @@ part of 'pages.dart';
 class HomePage extends StatefulWidget {
   final String token;
 
-  HomePage(this.token);
+  const HomePage(this.token, {super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -27,8 +27,8 @@ class _HomePageState extends State<HomePage> {
     controller = ScrollController();
 
     time = DateTime.now().millisecondsSinceEpoch.toString();
-
-    context.read<AiCubit>().getAi('${widget.token}', time!);
+    context.read<AiCubit>().getAi(widget.token, time!);
+    context.read<DataUserCubit>().getData(widget.token);
   }
 
   Future<List<Ai>> cari() async {
@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> {
           elevation: 1,
           title: Container(
             width: MediaQuery.of(context).size.width,
-            constraints: BoxConstraints(maxWidth: 800),
+            constraints: const BoxConstraints(maxWidth: 800),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -90,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                         fontSize: 12,
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       // constraints: BoxConstraints(maxWidth: 800),
                       width: 290,
                       child: Text(
@@ -115,7 +115,7 @@ class _HomePageState extends State<HomePage> {
                         borderRadius: BorderRadius.circular(50),
                       ),
                     ),
-                    SizedBox(width: 5),
+                    const SizedBox(width: 5),
                     Text(
                       'Online',
                       style: GoogleFonts.poppins().copyWith(
@@ -134,141 +134,86 @@ class _HomePageState extends State<HomePage> {
           builder: (context, state) {
             if (state is DataUserLoaded) {
               if (state.dataUser != null) {
-                return Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Positioned(
-                        top: 0,
-                        child: Container(
-                          height: MediaQuery.of(context).size.height - 60 - 80,
-                          padding: EdgeInsets.only(bottom: 40),
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
-                            reverse: true,
-                            child: BlocBuilder<AiCubit, AiState>(
-                              builder: (context, snapshot) {
-                                if (snapshot is AiLoaded) {
-                                  if (snapshot.ai != null) {
-                                    return Column(
-                                      children: snapshot.ai!
-                                          .mapIndexed(
-                                            (int index, e) => (e.role == "user")
-                                                ? ChatUserCard(e, '')
-                                                : ChatRobotCard(e, ''),
-                                          )
-                                          .toList(),
-                                    );
-                                  } else {
-                                    return SizedBox();
-                                  }
+                return Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Positioned(
+                      top: 0,
+                      child: Container(
+                        height: MediaQuery.of(context).size.height - 60 - 80,
+                        padding: const EdgeInsets.only(bottom: 40),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          reverse: true,
+                          child: BlocBuilder<AiCubit, AiState>(
+                            builder: (context, snapshot) {
+                              if (snapshot is AiLoaded) {
+                                if (snapshot.ai != null) {
+                                  return Column(
+                                    children: snapshot.ai!
+                                        .mapIndexed(
+                                          (int index, e) => (e.role == "user")
+                                              ? ChatUserCard(e, '')
+                                              : ChatRobotCard(e, ''),
+                                        )
+                                        .toList(),
+                                  );
                                 } else {
-                                  return SizedBox();
+                                  return const SizedBox();
                                 }
-                              },
-                            ),
+                              } else {
+                                return const SizedBox();
+                              }
+                            },
                           ),
                         ),
                       ),
-                      Positioned(
-                        bottom: 0,
-                        right: 0,
-                        left: 0,
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 1,
-                                blurRadius: 1,
-                                offset:
-                                    Offset(0, 0), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          height: 125,
-                          padding: EdgeInsets.only(
-                              top: 11, bottom: 20, right: 16, left: 16),
-                          child: Column(
-                            children: [
-                              (show == true)
-                                  ? Text(
-                                      'Sebentar ya Moms, kami sedang mencarikan jawaban dari pertanyaan kamu...',
-                                      textAlign: TextAlign.center,
-                                      style: GoogleFonts.poppins().copyWith(
-                                        fontWeight: FontWeight.w300,
-                                        color: '959595'.toColor(),
-                                        fontSize: 11,
-                                      ),
-                                    )
-                                  : SizedBox(),
-                              SizedBox(height: 5),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    constraints: BoxConstraints(maxWidth: 800),
-                                    height: 35,
-                                    width:
-                                        MediaQuery.of(context).size.width - 78,
-                                    child: TextField(
-                                      onSubmitted: (value) async {
-                                        focusNode.unfocus();
-
-                                        if (pertanyaan.text.isNotEmpty) {
-                                          setState(() {
-                                            isLoading = true;
-                                            show = true;
-                                            context.loaderOverlay.show();
-                                          });
-                                          await cari().whenComplete(() {
-                                            setState(() {
-                                              isLoading = false;
-                                              show = false;
-                                              context.loaderOverlay.hide();
-                                              pertanyaan.text = '';
-                                              // Navigator.pop(context);
-                                            });
-                                          });
-                                        }
-                                      },
-                                      focusNode: focusNode,
-                                      textCapitalization:
-                                          TextCapitalization.sentences,
-                                      cursorColor: 'FF6969'.toColor(),
-                                      controller: pertanyaan,
-                                      decoration: InputDecoration(
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(5)),
-                                          borderSide: BorderSide(
-                                              width: 1,
-                                              color: 'FF6969'.toColor()),
-                                        ),
-                                        contentPadding: EdgeInsets.only(
-                                            left: 10, top: 5, bottom: 5),
-                                        hintStyle:
-                                            GoogleFonts.poppins().copyWith(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w300,
-                                          color: '989797'.toColor(),
-                                        ),
-                                        hintText: 'Tanya seputar parenting...',
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                        ),
-                                      ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      left: 0,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 1,
+                              offset: const Offset(
+                                  0, 0), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        height: 125,
+                        padding: const EdgeInsets.only(
+                            top: 11, bottom: 20, right: 16, left: 16),
+                        child: Column(
+                          children: [
+                            (show == true)
+                                ? Text(
+                                    'Sebentar ya Moms, kami sedang mencarikan jawaban dari pertanyaan kamu...',
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.poppins().copyWith(
+                                      fontWeight: FontWeight.w300,
+                                      color: '959595'.toColor(),
+                                      fontSize: 11,
                                     ),
-                                  ),
-                                  SizedBox(width: 10),
-                                  GestureDetector(
-                                    onTap: () async {
+                                  )
+                                : const SizedBox(),
+                            const SizedBox(height: 5),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  constraints:
+                                      const BoxConstraints(maxWidth: 800),
+                                  height: 35,
+                                  width: MediaQuery.of(context).size.width - 78,
+                                  child: TextField(
+                                    onSubmitted: (value) async {
                                       focusNode.unfocus();
 
                                       if (pertanyaan.text.isNotEmpty) {
@@ -288,51 +233,98 @@ class _HomePageState extends State<HomePage> {
                                         });
                                       }
                                     },
-                                    child: Container(
-                                      padding: EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                        color: 'FF6969'.toColor(),
-                                        borderRadius: BorderRadius.circular(50),
+                                    focusNode: focusNode,
+                                    textCapitalization:
+                                        TextCapitalization.sentences,
+                                    cursorColor: 'FF6969'.toColor(),
+                                    controller: pertanyaan,
+                                    decoration: InputDecoration(
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(5)),
+                                        borderSide: BorderSide(
+                                            width: 1,
+                                            color: 'FF6969'.toColor()),
                                       ),
-                                      child: isLoading
-                                          ? Container(
-                                              width: 20,
-                                              height: 20,
-                                              child: Center(
-                                                child:
-                                                    CircularProgressIndicator(
-                                                        color: Colors.white,
-                                                        strokeWidth: 2),
-                                              ),
-                                            )
-                                          : Icon(Icons.send,
-                                              color: Colors.white, size: 20),
+                                      contentPadding: const EdgeInsets.only(
+                                          left: 10, top: 5, bottom: 5),
+                                      hintStyle: GoogleFonts.poppins().copyWith(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w300,
+                                        color: '989797'.toColor(),
+                                      ),
+                                      hintText: 'Tanya seputar parenting...',
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
                                     ),
                                   ),
-                                ],
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                'Do not completely rely on the answers provided by this AI without confirming them with other reliable sources.',
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.poppins().copyWith(
-                                  fontWeight: FontWeight.w300,
-                                  color: '959595'.toColor(),
-                                  fontSize: 11,
                                 ),
+                                const SizedBox(width: 10),
+                                GestureDetector(
+                                  onTap: () async {
+                                    focusNode.unfocus();
+
+                                    if (pertanyaan.text.isNotEmpty) {
+                                      setState(() {
+                                        isLoading = true;
+                                        show = true;
+                                        context.loaderOverlay.show();
+                                      });
+                                      await cari().whenComplete(() {
+                                        setState(() {
+                                          isLoading = false;
+                                          show = false;
+                                          context.loaderOverlay.hide();
+                                          pertanyaan.text = '';
+                                          // Navigator.pop(context);
+                                        });
+                                      });
+                                    }
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                      color: 'FF6969'.toColor(),
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    child: isLoading
+                                        ? const SizedBox(
+                                            width: 20,
+                                            height: 20,
+                                            child: Center(
+                                              child: CircularProgressIndicator(
+                                                  color: Colors.white,
+                                                  strokeWidth: 2),
+                                            ),
+                                          )
+                                        : const Icon(Icons.send,
+                                            color: Colors.white, size: 20),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 5),
+                            Text(
+                              'Do not completely rely on the answers provided by this AI without confirming them with other reliable sources.',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.poppins().copyWith(
+                                fontWeight: FontWeight.w300,
+                                color: '959595'.toColor(),
+                                fontSize: 11,
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 );
               } else {
-                return SizedBox();
+                return const SizedBox();
               }
             } else {
-              return SizedBox();
+              return const SizedBox();
             }
           },
         ),
@@ -354,14 +346,14 @@ class _HomePageState extends State<HomePage> {
         //     children: [
         //       (show == true)
         //           ? Text(
-        //         'Sebentar ya Moms, kami sedang mencarikan jawaban dari pertanyaan kamu...',
-        //         textAlign: TextAlign.center,
-        //         style: GoogleFonts.poppins().copyWith(
-        //           fontWeight: FontWeight.w300,
-        //           color: '959595'.toColor(),
-        //           fontSize: 10,
-        //         ),
-        //       )
+        //               'Sebentar ya Moms, kami sedang mencarikan jawaban dari pertanyaan kamu...',
+        //               textAlign: TextAlign.center,
+        //               style: GoogleFonts.poppins().copyWith(
+        //                 fontWeight: FontWeight.w300,
+        //                 color: '959595'.toColor(),
+        //                 fontSize: 10,
+        //               ),
+        //             )
         //           : SizedBox(),
         //       SizedBox(height: 5),
         //       Row(
@@ -387,10 +379,10 @@ class _HomePageState extends State<HomePage> {
         //                 focusedBorder: OutlineInputBorder(
         //                   borderRadius: BorderRadius.all(Radius.circular(5)),
         //                   borderSide:
-        //                   BorderSide(width: 1, color: 'FF6969'.toColor()),
+        //                       BorderSide(width: 1, color: 'FF6969'.toColor()),
         //                 ),
         //                 contentPadding:
-        //                 EdgeInsets.only(left: 10, top: 5, bottom: 5),
+        //                     EdgeInsets.only(left: 10, top: 5, bottom: 5),
         //                 hintStyle: GoogleFonts.poppins().copyWith(
         //                   fontSize: 12,
         //                   fontWeight: FontWeight.w300,
@@ -430,13 +422,13 @@ class _HomePageState extends State<HomePage> {
         //               ),
         //               child: isLoading
         //                   ? Container(
-        //                 width: 20,
-        //                 height: 20,
-        //                 child: Center(
-        //                   child: CircularProgressIndicator(
-        //                       color: Colors.white, strokeWidth: 2),
-        //                 ),
-        //               )
+        //                       width: 20,
+        //                       height: 20,
+        //                       child: Center(
+        //                         child: CircularProgressIndicator(
+        //                             color: Colors.white, strokeWidth: 2),
+        //                       ),
+        //                     )
         //                   : Icon(Icons.send, color: Colors.white, size: 20),
         //             ),
         //           ),

@@ -14,9 +14,9 @@ class DataUserInitial extends DataUserState {
 }
 
 class DataUserLoaded extends DataUserState {
-  final List<DataUser>? dataUser;
+  final DataUser? dataUser;
 
-  DataUserLoaded({this.dataUser});
+  const DataUserLoaded({this.dataUser});
 
   @override
   List<Object> get props => [dataUser!];
@@ -25,7 +25,7 @@ class DataUserLoaded extends DataUserState {
 class DataUserLoadingFailed extends DataUserState {
   final String? message;
 
-  DataUserLoadingFailed(this.message);
+  const DataUserLoadingFailed(this.message);
 
   @override
   List<Object> get props => [message!];

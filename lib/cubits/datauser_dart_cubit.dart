@@ -9,7 +9,7 @@ class DataUserCubit extends Cubit<DataUserState> {
   DataUserCubit() : super(DataUserInitial());
 
   Future<void> getData(String token) async {
-    ApiReturnData<List<DataUser>>? result =
+    ApiReturnData<DataUser>? result =
         await DataUserServices.getData(token);
     if (result?.value != null) {
       emit(DataUserLoaded(dataUser: result?.value));
