@@ -34,7 +34,6 @@ class _ChatUserCardState extends State<ChatUserCard> {
           const SizedBox(width: 10),
           Container(
             constraints: const BoxConstraints(maxWidth: 800),
-            // width: MediaQuery.of(context).size.width - 640,
             width: MediaQuery.of(context).size.width - 69,
             child: Text(
               widget.aiModel.content ?? '',

@@ -1,10 +1,15 @@
 import 'dart:convert';
+import 'dart:js';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
-import 'package:parentoday_ai/models/auth.dart';
 
 import '../models/logreg.dart';
+import '../pages/pages.dart';
 
-Future<List<DataLogReg>> LogRegGoogle() async {
+void LogRegGoogle(
+    String name, String userEmail, String uid, String imageUrl) async {
   Uri url_ = Uri.parse('https://dashboard.parentoday.com/api/login_register');
   var res = await http.post(
     url_,
@@ -14,18 +19,13 @@ Future<List<DataLogReg>> LogRegGoogle() async {
       'uid': uid,
       'profile_photo_url': imageUrl,
     },
-    headers: {
-      "Accept": "application/json",
-      "Authorization": "Bearer 1354|r5uOe7c4yC14CDvrkeTfP73s0AIrkG01EKos4lC4",
-    },
   );
   Map<String, dynamic> body = jsonDecode(res.body);
-  print("CKCKCK " + res.body.toString());
+  print("login " + res.body.toString());
   if (res.statusCode == 200) {
-    List<DataLogReg> value =
-        (body['data'] as Iterable).map((e) => DataLogReg.fromJson(e)).toList();
-
-    return value;
+    LoginUser data = LoginUser.fromJson(body['data']);
+    print("token " + data.access_token.toString());
+    Get.off(HomePage(data.access_token!));
   } else {
     throw "Error ${res.statusCode} => ${body["meta"]["message"]}";
   }

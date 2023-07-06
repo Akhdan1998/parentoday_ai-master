@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
       child: GetMaterialApp(
         color: 'FF6969'.toColor(),
         debugShowCheckedModeBanner: false,
-        home: const LoginPage('1354|r5uOe7c4yC14CDvrkeTfP73s0AIrkG01EKos4lC4'),
+        home: const LoginPage(''),
       ),
     );
   }

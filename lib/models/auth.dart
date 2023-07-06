@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -66,21 +65,18 @@ Future<User?> signInWithGoogle() async {
   return user;
 }
 
-void signOutGoogle() async {
-  await googleSignIn.signOut();
+final FirebaseAuth _auth = FirebaseAuth.instance;
+String? uid;
+String? name;
+
+Future<String> signOut() async {
   await _auth.signOut();
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.setBool('auth', false);
 
   uid = null;
-  name = null;
   userEmail = null;
-  imageUrl = null;
 
-  print('User Signed out of Googlw Account');
+  return 'User signed out';
 }
-
-final FirebaseAuth _auth = FirebaseAuth.instance;
-String? uid;
-String? name;

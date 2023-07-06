@@ -15,7 +15,7 @@ class DataUserServices {
     String url = baseUrl;
     var response = await client.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ${token}'
+      'Authorization': "Bearer ${token}",
     });
     print('hahah' + response.body.toString());
 
@@ -23,10 +23,6 @@ class DataUserServices {
       return ApiReturnData(message: 'Please try Again');
     }
     var data = jsonDecode(response.body);
-//jika backand berbentuk list
-//     List<DataUser> value =
-//         (data['data'] as Iterable).map((e) => DataUser.fromJson(e)).toList();
-//jika backand tidak berbentuk list
     DataUser value = DataUser.fromJson(data['data']);
     return ApiReturnData(value: value);
   }
