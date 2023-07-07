@@ -3,14 +3,34 @@ part of 'pages.dart';
 class HomePage extends StatefulWidget {
   final token;
 
-
-  HomePage(this.token);
+  HomePage(this.token, {super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  void logout(String id) async {
+    Uri url_ = Uri.parse('https://dashboard.parentoday.com/api/logout');
+    var res = await http.post(
+      url_,
+      headers: {
+        "Accept": "application/json",
+        "Authorization": 'Bearer ${widget.token}'
+      },
+    );
+    Map<String, dynamic> body = jsonDecode(res.body);
+    print("logout " + res.body.toString());
+    if (res.statusCode == 200) {
+      bool data = body["data"];
+      Get.to(
+        const LoginPage(),
+      );
+    } else {
+      throw "Error ${res.statusCode} => ${body["meta"]["message"]}";
+    }
+  }
+
   final pertanyaan = TextEditingController();
   final pertanyaanBaru = TextEditingController();
   bool isLoading = false;
@@ -31,6 +51,7 @@ class _HomePageState extends State<HomePage> {
     time = DateTime.now().millisecondsSinceEpoch.toString();
     context.read<AiCubit>().getAi(widget.token, time!);
     context.read<DataUserCubit>().getData(widget.token);
+    context.read<HistoryCubit>().getHistory(widget.token);
   }
 
   Future<List<Ai>> cari() async {
@@ -52,7 +73,7 @@ class _HomePageState extends State<HomePage> {
       List<Ai> value =
           (body['data'] as Iterable).map((e) => Ai.fromJson(e)).toList();
 
-      await context.read<AiCubit>().getAi('${widget.token}', time!);
+      await context.read<AiCubit>().getAi(widget.token, time!);
 
       return value;
     } else {
@@ -92,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.token,
+                      'A.I Parentoday',
                       style: GoogleFonts.poppins().copyWith(
                         fontWeight: FontWeight.bold,
                         color: '5E5E5E'.toColor(),
@@ -100,7 +121,6 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     SizedBox(
-                      // constraints: BoxConstraints(maxWidth: 800),
                       width: 290,
                       child: Text(
                         'Menjawab semua masalah parentingmu dengan cepat dan efisien',
@@ -150,8 +170,8 @@ class _HomePageState extends State<HomePage> {
                                     children: snapshot.ai!
                                         .mapIndexed(
                                           (int index, e) => (e.role == "user")
-                                              ? ChatUserCard(e, '')
-                                              : ChatRobotCard(e, ''),
+                                              ? ChatUserCard(e, widget.token)
+                                              : ChatRobotCard(e, widget.token),
                                         )
                                         .toList(),
                                   );
@@ -274,10 +294,12 @@ class _HomePageState extends State<HomePage> {
                                           show = false;
                                           context.loaderOverlay.hide();
                                           pertanyaan.text = '';
-                                          // Navigator.pop(context);
                                         });
                                       });
                                     }
+                                    context
+                                        .read<HistoryCubit>()
+                                        .getHistory(widget.token);
                                   },
                                   child: Container(
                                     padding: const EdgeInsets.all(8),
@@ -339,45 +361,55 @@ class _HomePageState extends State<HomePage> {
                       builder: (context, snapshot) {
                         if (snapshot is DataUserLoaded) {
                           if (snapshot.dataUser != null) {
-                            return Container(
+                            return SizedBox(
                               width: MediaQuery.of(context).size.width,
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Container(
-                                    width: 35,
-                                    height: 35,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(50),
-                                      image: DecorationImage(
-                                        image: NetworkImage(snapshot
-                                                .dataUser!.profile_photo_url ??
-                                            ''),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Column(
+                                  Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        snapshot.dataUser!.nama ?? '',
-                                        style: GoogleFonts.poppins().copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          color: '424242'.toColor(),
-                                          fontSize: 11,
+                                      Container(
+                                        width: 35,
+                                        height: 35,
+                                        decoration: BoxDecoration(
+                                          // color: Colors.red,
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                          image: DecorationImage(
+                                            image: NetworkImage(snapshot
+                                                    .dataUser!
+                                                    .profile_photo_url ??
+                                                ''),
+                                          ),
                                         ),
                                       ),
-                                      Text(
-                                        snapshot.dataUser!.email ?? '',
-                                        style: GoogleFonts.poppins().copyWith(
-                                          fontWeight: FontWeight.w300,
-                                          color: '555555'.toColor(),
-                                          fontSize: 10,
-                                        ),
+                                      const SizedBox(width: 10),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            snapshot.dataUser!.nama ?? '',
+                                            style:
+                                                GoogleFonts.poppins().copyWith(
+                                              fontWeight: FontWeight.bold,
+                                              color: '424242'.toColor(),
+                                              fontSize: 11,
+                                            ),
+                                          ),
+                                          Text(
+                                            snapshot.dataUser!.email ?? '',
+                                            style:
+                                                GoogleFonts.poppins().copyWith(
+                                              fontWeight: FontWeight.w300,
+                                              color: '555555'.toColor(),
+                                              fontSize: 10,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
@@ -433,143 +465,24 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     const SizedBox(height: 15),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        color: Colors.white,
-                        width: MediaQuery.of(context).size.width,
-                        padding: const EdgeInsets.all(5),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
+                    BlocBuilder<HistoryCubit, HistoryState>(
+                      builder: (context, headshot) {
+                        if (headshot is HistoryLoaded) {
+                          if (headshot.history != null) {
+                            return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Icon(Icons.chat_outlined, size: 20),
-                                const SizedBox(width: 7),
-                                Text(
-                                  'Rekomendasi Nama Anak?',
-                                  style: GoogleFonts.poppins().copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: '555555'.toColor(),
-                                    fontSize: 10,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const Icon(Icons.chevron_right)
-                          ],
-                        ),
-                      ),
-                    ),
-                    Divider(
-                      thickness: 1.5,
-                      color: 'ECECEC'.toColor(),
-                      height: 5,
-                    ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        color: Colors.white,
-                        width: MediaQuery.of(context).size.width,
-                        padding: const EdgeInsets.all(5),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Icon(Icons.chat_outlined, size: 20),
-                                const SizedBox(width: 7),
-                                Text(
-                                  'Mengatasi Bayi Tantrum?',
-                                  style: GoogleFonts.poppins().copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: '555555'.toColor(),
-                                    fontSize: 10,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const Icon(Icons.chevron_right)
-                          ],
-                        ),
-                      ),
-                    ),
-                    Divider(
-                      thickness: 1.5,
-                      color: 'ECECEC'.toColor(),
-                      height: 5,
-                    ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        color: Colors.white,
-                        width: MediaQuery.of(context).size.width,
-                        padding: const EdgeInsets.all(5),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Icon(Icons.chat_outlined,
-                                    size: 20, color: '555555'.toColor()),
-                                const SizedBox(width: 7),
-                                Text(
-                                  'Rekomendasi Nama Anak?',
-                                  style: GoogleFonts.poppins().copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: '555555'.toColor(),
-                                    fontSize: 10,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Icon(Icons.chevron_right,
-                                color: '555555'.toColor()),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Divider(
-                      thickness: 1.5,
-                      color: 'ECECEC'.toColor(),
-                      height: 5,
-                    ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        color: Colors.white,
-                        width: MediaQuery.of(context).size.width,
-                        padding: const EdgeInsets.all(5),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Icon(Icons.chat_outlined, size: 20),
-                                const SizedBox(width: 7),
-                                Text(
-                                  'Mengatasi Bayi Tantrum?',
-                                  style: GoogleFonts.poppins().copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: '555555'.toColor(),
-                                    fontSize: 10,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const Icon(Icons.chevron_right)
-                          ],
-                        ),
-                      ),
-                    ),
-                    Divider(
-                      thickness: 1.5,
-                      color: 'ECECEC'.toColor(),
-                      height: 5,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: headshot.history!
+                                  .map((e) => list_history(e, widget.token))
+                                  .toList(),
+                            );
+                          } else {
+                            return const SizedBox();
+                          }
+                        } else {
+                          return const SizedBox();
+                        }
+                      },
                     ),
                   ],
                 ),
@@ -588,16 +501,10 @@ class _HomePageState extends State<HomePage> {
                       });
                       await signOut().then((result) {
                         print(result);
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            fullscreenDialog: true,
-                            builder: (context) => LoginPage(widget.token),
-                          ),
-                        );
+                        logout(widget.token);
                       }).catchError((error) {
                         print('SignOut Error: $error');
                       });
-                      logout(widget.token);
                     },
                     child: Container(
                       padding:
@@ -605,8 +512,12 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.white,
                       child: (isLoading == true)
                           ? Center(
-                              child: CircularProgressIndicator(
-                                color: 'FF6969'.toColor(),
+                              child: Container(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(
+                                  color: 'FF6969'.toColor(),
+                                ),
                               ),
                             )
                           : Row(
@@ -630,7 +541,6 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        // Disable opening the end drawer with a swipe gesture.
         endDrawerEnableOpenDragGesture: false,
       ),
     );

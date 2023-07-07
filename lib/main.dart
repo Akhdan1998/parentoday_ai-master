@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:parentoday_ai/cubits/listHistory_cubit.dart';
 import 'package:parentoday_ai/pages/pages.dart';
 import 'package:supercharged/supercharged.dart';
 
@@ -33,11 +34,12 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => AiCubit()),
         BlocProvider(create: (_) => DataUserCubit()),
+        BlocProvider(create: (_) => HistoryCubit()),
       ],
       child: GetMaterialApp(
         color: 'FF6969'.toColor(),
         debugShowCheckedModeBanner: false,
-        home: const LoginPage(''),
+        home: const LoginPage(),
       ),
     );
   }

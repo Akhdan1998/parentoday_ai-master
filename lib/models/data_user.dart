@@ -1,5 +1,3 @@
-import 'package:equatable/equatable.dart';
-
 class DataUser {
   String? user_id;
   String? nama;

@@ -1,15 +1,15 @@
 part of 'pages.dart';
 
 class LoginPage extends StatefulWidget {
-  final String token;
-
-  const LoginPage(this.token, {super.key});
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +19,6 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // const SizedBox(height: 100),
             Image.asset('assets/loginGoogle.png', scale: 2),
             const SizedBox(height: 20),
             Text(
@@ -42,22 +41,20 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 60),
             GestureDetector(
               onTap: () async {
+                setState(() {
+                  isLoading = true;
+                });
                 await signInWithGoogle().then((result) {
                   print(result);
-                  if (result != null) {
-                    Get.to(
-                       HomePage(widget.token),
-                    );
-                  }
+                  LogRegGoogle(
+                    name.toString(),
+                    userEmail.toString(),
+                    uid.toString(),
+                    imageUrl.toString(),
+                  );
                 }).catchError((error) {
                   print('Registration Error: $error');
                 });
-                LogRegGoogle(
-                  name.toString(),
-                  userEmail.toString(),
-                  uid.toString(),
-                  imageUrl.toString(),
-                );
               },
               child: Container(
                 height: 35,
@@ -69,29 +66,39 @@ class _LoginPageState extends State<LoginPage> {
                       color: Colors.grey.withOpacity(0.5),
                       spreadRadius: 1,
                       blurRadius: 1,
-                      offset:
-                          const Offset(0, 0), // changes position of shadow
+                      offset: const Offset(0, 0), // changes position of shadow
                     ),
                   ],
                 ),
                 child: Container(
                   constraints: const BoxConstraints(maxWidth: 800),
                   width: MediaQuery.of(context).size.width - 78,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset('assets/google.png', scale: 2),
-                      const SizedBox(width: 5),
-                      Text(
-                        'Masuk/Daftar dengan Google',
-                        style: GoogleFonts.poppins().copyWith(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10,
-                          color: '6D6D6D'.toColor(),
+                  child: (isLoading == true)
+                      ? Center(
+                          child: SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2.5,
+                              color: 'FF6969'.toColor(),
+                            ),
+                          ),
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset('assets/google.png', scale: 2),
+                            const SizedBox(width: 5),
+                            Text(
+                              'Masuk/Daftar dengan Google',
+                              style: GoogleFonts.poppins().copyWith(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 10,
+                                color: '6D6D6D'.toColor(),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
                 ),
               ),
             ),
