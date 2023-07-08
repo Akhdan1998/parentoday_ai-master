@@ -36,6 +36,7 @@ class _HomePageState extends State<HomePage> {
   bool isLoading = false;
   bool showOverlay = false;
   bool show = false;
+  bool showChat = true;
   String? time;
 
   FocusNode focusNode = FocusNode();
@@ -162,7 +163,7 @@ class _HomePageState extends State<HomePage> {
                         child: SingleChildScrollView(
                           scrollDirection: Axis.vertical,
                           reverse: true,
-                          child: BlocBuilder<AiCubit, AiState>(
+                          child: (showChat == false) ? const SizedBox() : BlocBuilder<AiCubit, AiState>(
                             builder: (context, snapshot) {
                               if (snapshot is AiLoaded) {
                                 if (snapshot.ai != null) {
@@ -170,9 +171,9 @@ class _HomePageState extends State<HomePage> {
                                     children: snapshot.ai!
                                         .mapIndexed(
                                           (int index, e) => (e.role == "user")
-                                              ? ChatUserCard(e, widget.token)
-                                              : ChatRobotCard(e, widget.token),
-                                        )
+                                          ? ChatUserCard(e, widget.token)
+                                          : ChatRobotCard(e, widget.token),
+                                    )
                                         .toList(),
                                   );
                                 } else {
@@ -183,6 +184,7 @@ class _HomePageState extends State<HomePage> {
                               }
                             },
                           ),
+
                         ),
                       ),
                     ),
@@ -379,10 +381,11 @@ class _HomePageState extends State<HomePage> {
                                           borderRadius:
                                               BorderRadius.circular(50),
                                           image: DecorationImage(
-                                            image: NetworkImage(snapshot
-                                                    .dataUser!
-                                                    .profile_photo_url ??
-                                                ''),
+                                            image: NetworkImage(imageUrl ?? ''),
+                                            // image: NetworkImage(snapshot
+                                            //         .dataUser!
+                                            //         .profile_photo_url ??
+                                            //     ''),
                                           ),
                                         ),
                                       ),
@@ -434,33 +437,43 @@ class _HomePageState extends State<HomePage> {
                         }
                       },
                     ),
-                    const SizedBox(height: 20),
-                    SizedBox(
-                      height: 35,
-                      width: MediaQuery.of(context).size.width,
-                      child: TextField(
-                        cursorColor: 'FF6969'.toColor(),
-                        controller: pertanyaanBaru,
-                        decoration: InputDecoration(
-                          suffixIcon:
-                              Icon(Icons.add, color: '616161'.toColor()),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(5)),
-                            borderSide:
-                                BorderSide(width: 1, color: 'FF6969'.toColor()),
-                          ),
-                          contentPadding: const EdgeInsets.only(
-                              left: 10, top: 5, bottom: 5),
-                          hintStyle: GoogleFonts.poppins().copyWith(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w300,
-                            color: '989797'.toColor(),
-                          ),
-                          hintText: 'Chat Baru',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
+                    const SizedBox(height: 15),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          showChat = false;
+                        });
+                        Navigator.of(context).pop();
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.only(left: 10, right: 5, top: 5, bottom: 5),
+                        // margin: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 1,
+                              offset: const Offset(0, 0), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Pertanyaan Baru',
+                              style: GoogleFonts.poppins().copyWith(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 10,
+                                color: '6D6D6D'.toColor(),
+                              ),
+                            ),
+                            const SizedBox(width: 5),
+                            Icon(Icons.add),
+                          ],
                         ),
                       ),
                     ),
