@@ -11,12 +11,16 @@ class list_history extends StatefulWidget {
 }
 
 class _list_historyState extends State<list_history> {
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         GestureDetector(
           onTap: () {
+            setState(() {
+              selectedRandomId = widget.history!.random_id;
+            });
             context
                 .read<AiCubit>()
                 .getAi(widget.token, widget.history!.random_id ?? '');

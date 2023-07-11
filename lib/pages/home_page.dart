@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
       url_,
       body: {
         'prompt': pertanyaan.text,
-        'random_id': time,
+        'random_id': (selectedRandomId != null) ? selectedRandomId : time,
       },
       headers: {
         "Accept": "application/json",
@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
       List<Ai> value =
           (body['data'] as Iterable).map((e) => Ai.fromJson(e)).toList();
 
-      await context.read<AiCubit>().getAi(widget.token, time!);
+      await context.read<AiCubit>().getAi(widget.token, (selectedRandomId != null) ? selectedRandomId! : time!);
 
       return value;
     } else {
@@ -417,7 +417,9 @@ class _HomePageState extends State<HomePage> {
                                     ],
                                   ),
                                   GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Get.to(edit());
+                                    },
                                     child: Container(
                                       color: Colors.white,
                                       child: Image.asset(
@@ -442,12 +444,12 @@ class _HomePageState extends State<HomePage> {
                       onTap: () {
                         setState(() {
                           showChat = false;
+                          selectedRandomId = null;
                         });
                         Navigator.of(context).pop();
                       },
                       child: Container(
                         padding: const EdgeInsets.only(left: 10, right: 5, top: 5, bottom: 5),
-                        // margin: const EdgeInsets.all(5),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(8),
