@@ -69,10 +69,9 @@ class _HomePageState extends State<HomePage> {
       },
     );
     Map<String, dynamic> body = jsonDecode(res.body);
-    print("BAKAKAKA " + res.body.toString());
     if (res.statusCode == 200) {
       List<Ai> value =
-          (body['data'] as Iterable).map((e) => Ai.fromJson(e)).toList();
+      (body['data'] as Iterable).map((e) => Ai.fromJson(e)).toList();
 
       await context.read<AiCubit>().getAi(
           widget.token, (selectedRandomId != null) ? selectedRandomId! : time!);
@@ -159,6 +158,96 @@ class _HomePageState extends State<HomePage> {
                     Positioned(
                       top: 0,
                       child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.all(15),
+                        color: 'FFF4F4'.toColor(),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Image.asset('assets/parentoday.png', scale: 2),
+                            SizedBox(width: 10),
+                            Container(
+                              constraints: const BoxConstraints(maxWidth: 800),
+                              width: MediaQuery.of(context).size.width - 78,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Selamat datang di AI Parenting! Saya siap membantu Anda sebagai orang tua dengan saran dan dukungan dalam mengasuh anak-anak Anda dari bayi hingga remaja. Tanya saja tentang nutrisi, jadwal tidur, pengembangan emosional, dan aktivitas bermain yang menyenangkan.',
+                                    style: GoogleFonts.poppins().copyWith(
+                                      fontSize: 12,
+                                      color: '484848'.toColor(),
+                                    ),
+                                  ),
+                                  SizedBox(height: 9),
+                                  Text(
+                                    'Contoh:',
+                                    style: GoogleFonts.poppins().copyWith(
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.bold,
+                                      color: '484848'.toColor(),
+                                    ),
+                                  ),
+                                  SizedBox(height: 9),
+                                  Wrap(
+                                    spacing: 8,
+                                    runSpacing: 8,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {},
+                                        child: Chip(
+                                          backgroundColor: 'FFE0E0'.toColor(),
+                                          label: Text(
+                                            'Cara mengatasi anak susah makan',
+                                            style:
+                                                GoogleFonts.poppins().copyWith(
+                                              fontSize: 11,
+                                              color: '484848'.toColor(),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {},
+                                        child: Chip(
+                                          backgroundColor: 'FFE0E0'.toColor(),
+                                          label: Text(
+                                            'Resep mpasi untuk bayi',
+                                            style:
+                                                GoogleFonts.poppins().copyWith(
+                                              fontSize: 11,
+                                              color: '484848'.toColor(),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {},
+                                        child: Chip(
+                                          backgroundColor: 'FFE0E0'.toColor(),
+                                          label: Text(
+                                            'Menangani tantrum pada anak',
+                                            style:
+                                                GoogleFonts.poppins().copyWith(
+                                              fontSize: 11,
+                                              color: '484848'.toColor(),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 0,
+                      child: Container(
                         height: MediaQuery.of(context).size.height - 60 - 80,
                         padding: const EdgeInsets.only(bottom: 40),
                         child: SingleChildScrollView(
@@ -172,12 +261,11 @@ class _HomePageState extends State<HomePage> {
                                     children: snapshot.ai!
                                         .mapIndexed(
                                           (int index, e) => (e.role == "user")
-                                          ? ChatUserCard(e,
-                                        widget.token
-                                        // state.dataUser.toString(),
-                                      )
-                                          : ChatRobotCard(e, widget.token),
-                                    )
+                                              ? ChatUserCard(e, widget.token
+                                                  // state.dataUser.toString(),
+                                                  )
+                                              : ChatRobotCard(e, widget.token),
+                                        )
                                         .toList(),
                                   );
                                 } else {
