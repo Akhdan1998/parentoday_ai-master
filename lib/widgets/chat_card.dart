@@ -2,9 +2,10 @@ part of 'widgets.dart';
 
 class ChatUserCard extends StatefulWidget {
   final Ai aiModel;
+  // final DataUser userData;
   final String token;
 
-  const ChatUserCard(this.aiModel, this.token, {super.key});
+  ChatUserCard(this.aiModel, this.token);
 
   @override
   State<ChatUserCard> createState() => _ChatUserCardState();
@@ -27,6 +28,9 @@ class _ChatUserCardState extends State<ChatUserCard> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(3),
               image: DecorationImage(
+                // image: NetworkImage(
+                //   widget.userData.profile_photo_url ?? '',
+                // ),
                 image: NetworkImage(imageUrl ?? ''),
               ),
             ),

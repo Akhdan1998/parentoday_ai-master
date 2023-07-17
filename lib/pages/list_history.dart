@@ -11,7 +11,6 @@ class list_history extends StatefulWidget {
 }
 
 class _list_historyState extends State<list_history> {
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -24,6 +23,7 @@ class _list_historyState extends State<list_history> {
             context
                 .read<AiCubit>()
                 .getAi(widget.token, widget.history!.random_id ?? '');
+
             Navigator.of(context).pop();
           },
           child: Container(

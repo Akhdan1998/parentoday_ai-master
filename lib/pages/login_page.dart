@@ -45,16 +45,13 @@ class _LoginPageState extends State<LoginPage> {
                   isLoading = true;
                 });
                 await signInWithGoogle().then((result) {
-                  print(result);
                   LogRegGoogle(
                     name.toString(),
                     userEmail.toString(),
                     uid.toString(),
                     imageUrl.toString(),
                   );
-                }).catchError((error) {
-                  print('Registration Error: $error');
-                });
+                }).catchError((error) {});
               },
               child: Container(
                 height: 35,

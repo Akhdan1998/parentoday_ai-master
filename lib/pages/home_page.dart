@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
   bool isLoading = false;
   bool showOverlay = false;
   bool show = false;
-  bool showChat = true;
+
   String? time;
 
   FocusNode focusNode = FocusNode();
@@ -74,7 +74,8 @@ class _HomePageState extends State<HomePage> {
       List<Ai> value =
           (body['data'] as Iterable).map((e) => Ai.fromJson(e)).toList();
 
-      await context.read<AiCubit>().getAi(widget.token, (selectedRandomId != null) ? selectedRandomId! : time!);
+      await context.read<AiCubit>().getAi(
+          widget.token, (selectedRandomId != null) ? selectedRandomId! : time!);
 
       return value;
     } else {
@@ -163,7 +164,7 @@ class _HomePageState extends State<HomePage> {
                         child: SingleChildScrollView(
                           scrollDirection: Axis.vertical,
                           reverse: true,
-                          child: (showChat == false) ? const SizedBox() : BlocBuilder<AiCubit, AiState>(
+                          child: BlocBuilder<AiCubit, AiState>(
                             builder: (context, snapshot) {
                               if (snapshot is AiLoaded) {
                                 if (snapshot.ai != null) {
@@ -171,7 +172,10 @@ class _HomePageState extends State<HomePage> {
                                     children: snapshot.ai!
                                         .mapIndexed(
                                           (int index, e) => (e.role == "user")
-                                          ? ChatUserCard(e, widget.token)
+                                          ? ChatUserCard(e,
+                                        widget.token
+                                        // state.dataUser.toString(),
+                                      )
                                           : ChatRobotCard(e, widget.token),
                                     )
                                         .toList(),
@@ -184,7 +188,6 @@ class _HomePageState extends State<HomePage> {
                               }
                             },
                           ),
-
                         ),
                       ),
                     ),
@@ -377,15 +380,14 @@ class _HomePageState extends State<HomePage> {
                                         width: 35,
                                         height: 35,
                                         decoration: BoxDecoration(
-                                          // color: Colors.red,
                                           borderRadius:
                                               BorderRadius.circular(50),
                                           image: DecorationImage(
-                                            image: NetworkImage(imageUrl ?? ''),
-                                            // image: NetworkImage(snapshot
-                                            //         .dataUser!
-                                            //         .profile_photo_url ??
-                                            //     ''),
+                                            // image: NetworkImage(imageUrl ?? ''),
+                                            image: NetworkImage(snapshot
+                                                    .dataUser!
+                                                    .profile_photo_url ??
+                                                ''),
                                           ),
                                         ),
                                       ),
@@ -418,7 +420,12 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      Get.to(edit());
+                                      Get.to(
+                                        edit(
+                                          snapshot.dataUser!,
+                                          widget.token,
+                                        ),
+                                      );
                                     },
                                     child: Container(
                                       color: Colors.white,
@@ -442,14 +449,17 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(height: 15),
                     GestureDetector(
                       onTap: () {
+                        context.read<AiCubit>().getAi(widget.token, '');
+
                         setState(() {
-                          showChat = false;
                           selectedRandomId = null;
+                          showChat = false;
                         });
                         Navigator.of(context).pop();
                       },
                       child: Container(
-                        padding: const EdgeInsets.only(left: 10, right: 5, top: 5, bottom: 5),
+                        padding: const EdgeInsets.only(
+                            left: 10, right: 5, top: 5, bottom: 5),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(8),
@@ -458,7 +468,8 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.grey.withOpacity(0.5),
                               spreadRadius: 1,
                               blurRadius: 1,
-                              offset: const Offset(0, 0), // changes position of shadow
+                              offset: const Offset(
+                                  0, 0), // changes position of shadow
                             ),
                           ],
                         ),
