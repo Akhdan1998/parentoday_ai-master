@@ -31,6 +31,10 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  final tanya1 = TextEditingController(text: 'Cara mengatasi anak susah makan');
+  final tanya2 = TextEditingController(text: 'Resep mpasi untuk bayi');
+  final tanya3 = TextEditingController(text: 'Cara mengatasi anak susah makan');
+
   final pertanyaan = TextEditingController();
   final pertanyaanBaru = TextEditingController();
   bool isLoading = false;
@@ -71,7 +75,88 @@ class _HomePageState extends State<HomePage> {
     Map<String, dynamic> body = jsonDecode(res.body);
     if (res.statusCode == 200) {
       List<Ai> value =
-      (body['data'] as Iterable).map((e) => Ai.fromJson(e)).toList();
+          (body['data'] as Iterable).map((e) => Ai.fromJson(e)).toList();
+
+      await context.read<AiCubit>().getAi(
+          widget.token, (selectedRandomId != null) ? selectedRandomId! : time!);
+
+      return value;
+    } else {
+      throw "Error ${res.statusCode} => ${body["meta"]["message"]}";
+    }
+  }
+
+  Future<List<Ai>> contoh1() async {
+    Uri url_ = Uri.parse('https://dashboard.parentoday.com/api/chat/ai');
+    var res = await http.post(
+      url_,
+      body: {
+        'prompt': tanya1.text,
+        'random_id': (selectedRandomId != null) ? selectedRandomId : time,
+      },
+      headers: {
+        "Accept": "application/json",
+        "Authorization": "Bearer ${widget.token}",
+      },
+    );
+    Map<String, dynamic> body = jsonDecode(res.body);
+    if (res.statusCode == 200) {
+      List<Ai> value =
+          (body['data'] as Iterable).map((e) => Ai.fromJson(e)).toList();
+
+      await context.read<AiCubit>().getAi(
+          widget.token, (selectedRandomId != null) ? selectedRandomId! : time!);
+
+      return value;
+    } else {
+      throw "Error ${res.statusCode} => ${body["meta"]["message"]}";
+    }
+  }
+
+  Future<List<Ai>> contoh2() async {
+    Uri url_ = Uri.parse('https://dashboard.parentoday.com/api/chat/ai');
+    var res = await http.post(
+      url_,
+      body: {
+        'prompt': tanya2.text,
+        'random_id': (selectedRandomId != null) ? selectedRandomId : time,
+      },
+      headers: {
+        "Accept": "application/json",
+        "Authorization": "Bearer ${widget.token}",
+      },
+    );
+    Map<String, dynamic> body = jsonDecode(res.body);
+    if (res.statusCode == 200) {
+      List<Ai> value =
+          (body['data'] as Iterable).map((e) => Ai.fromJson(e)).toList();
+
+      await context.read<AiCubit>().getAi(
+          widget.token, (selectedRandomId != null) ? selectedRandomId! : time!);
+
+      return value;
+    } else {
+      throw "Error ${res.statusCode} => ${body["meta"]["message"]}";
+    }
+  }
+
+  Future<List<Ai>> contoh3() async {
+    Uri url_ = Uri.parse('https://dashboard.parentoday.com/api/chat/ai');
+    var res = await http.post(
+      url_,
+      body: {
+        'prompt': tanya2.text,
+        'random_id': (selectedRandomId != null) ? selectedRandomId : time,
+      },
+      headers: {
+        "Accept": "application/json",
+        "Authorization": "Bearer ${widget.token}",
+      },
+    );
+    Map<String, dynamic> body = jsonDecode(res.body);
+    if (res.statusCode == 200) {
+      List<Ai> value =
+          (body['data'] as Iterable).map((e) => Ai.fromJson(e)).toList();
 
       await context.read<AiCubit>().getAi(
           widget.token, (selectedRandomId != null) ? selectedRandomId! : time!);
@@ -195,13 +280,15 @@ class _HomePageState extends State<HomePage> {
                                     runSpacing: 8,
                                     children: [
                                       GestureDetector(
-                                        onTap: () {},
+                                        onTap: () {
+                                          contoh1();
+                                        },
                                         child: Chip(
                                           backgroundColor: 'FFE0E0'.toColor(),
                                           label: Text(
                                             'Cara mengatasi anak susah makan',
                                             style:
-                                                GoogleFonts.poppins().copyWith(
+                                            GoogleFonts.poppins().copyWith(
                                               fontSize: 11,
                                               color: '484848'.toColor(),
                                             ),
@@ -209,7 +296,9 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                       ),
                                       GestureDetector(
-                                        onTap: () {},
+                                        onTap: () {
+                                          contoh2();
+                                        },
                                         child: Chip(
                                           backgroundColor: 'FFE0E0'.toColor(),
                                           label: Text(
@@ -223,7 +312,9 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                       ),
                                       GestureDetector(
-                                        onTap: () {},
+                                        onTap: () {
+                                          contoh3();
+                                        },
                                         child: Chip(
                                           backgroundColor: 'FFE0E0'.toColor(),
                                           label: Text(
