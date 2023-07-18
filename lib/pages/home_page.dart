@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  final tanya1 = TextEditingController(text: 'Cara mengatasi anak susah makan');
+  final tanya1 = TextEditingController(text: 'Menangani tantrum pada anak');
   final tanya2 = TextEditingController(text: 'Resep mpasi untuk bayi');
   final tanya3 = TextEditingController(text: 'Cara mengatasi anak susah makan');
 
@@ -280,13 +280,32 @@ class _HomePageState extends State<HomePage> {
                                     runSpacing: 8,
                                     children: [
                                       GestureDetector(
-                                        onTap: () {
-                                          contoh1();
+                                        onTap: () async {
+                                          focusNode.unfocus();
+
+                                          if (tanya1.text.isNotEmpty) {
+                                            setState(() {
+                                              isLoading = true;
+                                              show = true;
+                                              context.loaderOverlay.show();
+                                            });
+                                            await contoh1().whenComplete(() {
+                                              setState(() {
+                                                isLoading = false;
+                                                show = false;
+                                                context.loaderOverlay.hide();
+                                                tanya1.text = '';
+                                              });
+                                            });
+                                          }
+                                          context
+                                              .read<HistoryCubit>()
+                                              .getHistory(widget.token);
                                         },
                                         child: Chip(
                                           backgroundColor: 'FFE0E0'.toColor(),
                                           label: Text(
-                                            'Cara mengatasi anak susah makan',
+                                            'Menangani tantrum pada anak',
                                             style:
                                             GoogleFonts.poppins().copyWith(
                                               fontSize: 11,
@@ -296,8 +315,27 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                       ),
                                       GestureDetector(
-                                        onTap: () {
-                                          contoh2();
+                                        onTap: () async {
+                                          focusNode.unfocus();
+
+                                          if (tanya2.text.isNotEmpty) {
+                                            setState(() {
+                                              isLoading = true;
+                                              show = true;
+                                              context.loaderOverlay.show();
+                                            });
+                                            await contoh2().whenComplete(() {
+                                              setState(() {
+                                                isLoading = false;
+                                                show = false;
+                                                context.loaderOverlay.hide();
+                                                tanya2.text = '';
+                                              });
+                                            });
+                                          }
+                                          context
+                                              .read<HistoryCubit>()
+                                              .getHistory(widget.token);
                                         },
                                         child: Chip(
                                           backgroundColor: 'FFE0E0'.toColor(),
@@ -312,13 +350,32 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                       ),
                                       GestureDetector(
-                                        onTap: () {
-                                          contoh3();
+                                        onTap: () async {
+                                          focusNode.unfocus();
+
+                                          if (tanya3.text.isNotEmpty) {
+                                            setState(() {
+                                              isLoading = true;
+                                              show = true;
+                                              context.loaderOverlay.show();
+                                            });
+                                            await contoh3().whenComplete(() {
+                                              setState(() {
+                                                isLoading = false;
+                                                show = false;
+                                                context.loaderOverlay.hide();
+                                                tanya3.text = '';
+                                              });
+                                            });
+                                          }
+                                          context
+                                              .read<HistoryCubit>()
+                                              .getHistory(widget.token);
                                         },
                                         child: Chip(
                                           backgroundColor: 'FFE0E0'.toColor(),
                                           label: Text(
-                                            'Menangani tantrum pada anak',
+                                            'Cara mengatasi anak susah makan',
                                             style:
                                                 GoogleFonts.poppins().copyWith(
                                               fontSize: 11,
