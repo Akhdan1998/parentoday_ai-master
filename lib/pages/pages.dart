@@ -1,4 +1,8 @@
 import 'dart:convert';
+// import 'dart:html';
+import 'package:get/get_connect/http/src/request/request.dart';
+import 'package:image_picker_web/image_picker_web.dart';
+import 'package:universal_io/io.dart';
 import 'dart:io';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
@@ -25,6 +29,9 @@ import '../models/history.dart';
 import '../models/models.dart';
 import '../services/LogReg_services.dart';
 import '../widgets/widgets.dart';
+import 'dart:typed_data';
+import 'package:http_parser/http_parser.dart';
+import 'package:universal_io/io.dart';
 part 'edit.dart';
 
 part 'list_history.dart';

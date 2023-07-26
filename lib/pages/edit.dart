@@ -31,85 +31,176 @@ class _editState extends State<edit> {
     Map<String, dynamic> body = jsonDecode(response.body);
     if (response.statusCode == 200) {
       EditProfil data = EditProfil.fromJson(body['data']);
-      Get.off(HomePage(widget.token));
+      // Get.off(HomePage(widget.token));
     } else {
       throw 'Error ${response.statusCode} => ${body['meta']['message']}';
     }
   }
 
-  File? _pickedImage;
-  Uint8List webImage = Uint8List(8);
+  // File? _pickedImage;
+  // Uint8List webImage = Uint8List(8);
+  //
+  // Future<void> _pickImage() async {
+  //   if (!kIsWeb) {
+  //     final ImagePicker _picker = ImagePicker();
+  //     XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+  //     if (image != null) {
+  //       var selected = File(image.path);
+  //       setState(() {
+  //         _pickedImage = selected;
+  //       });
+  //     } else {
+  //       print('No Image has been picked');
+  //     }
+  //   } else if (kIsWeb) {
+  //     final ImagePicker picker = ImagePicker();
+  //     XFile? image = await picker.pickImage(source: ImageSource.gallery);
+  //     if (image != null) {
+  //       var f = await image.readAsBytes();
+  //       setState(() {
+  //         webImage = f;
+  //         _pickedImage = File(image.path);
+  //       });
+  //     } else {
+  //       print('No Image has been picked');
+  //     }
+  //   } else {
+  //     print('Something when wrong');
+  //   }
+  // }
 
-  Future<void> _pickImage() async {
-    if (!kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        var selected = File(image.path);
-        setState(() {
-          _pickedImage = selected;
-        });
-      } else {
-        print('No Image has been picked');
-      }
-    } else if (kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        var f = await image.readAsBytes();
-        setState(() {
-          webImage = f;
-          _pickedImage = File(image.path);
-        });
-      } else {
-        print('No Image has been picked');
-      }
-    } else {
-      print('Something when wrong');
-    }
-  }
+  // static Future<ApiReturnFoto<String>> uploadPhoto(File photoFile,
+  //     {String? token, http.MultipartRequest? request}) async {
+  //   String url = 'https://dashboard.parentoday.com/api/user/photo';
+  //   var uri = Uri.parse(url);
+  //
+  //   request ??= http.MultipartRequest('POST', uri)
+  //     ..headers["Content-Type"] = "application/json"
+  //     ..headers["Authorization"] = "Bearer $token";
+  //
+  //   var multiPartFile =
+  //       await http.MultipartFile.fromPath('file', photoFile.path);
+  //   request.files.add(multiPartFile);
+  //
+  //   var response = await request.send();
+  //
+  //   // HttpClient httpClient = newUniversalHttpClient(); // Recommended way of creating HttpClient.
+  //   // final request = await httpClient.getUrl(Uri.parse("https://dashboard.parentoday.com/api/user/photo"));
+  //   // final response = await request.a();
+  //
+  //   // var multiPartFile =
+  //   //     await http.MultipartFile.fromPath('file', photoFile.path);
+  //   // request.files.add(multiPartFile);
+  //
+  //   // String responseBody1 = await response.stream.bytesToString();
+  //   if (response.statusCode == 200) {
+  //     String responseBody = await response.stream.bytesToString();
+  //     var data = jsonDecode(request.toString());
+  //     String imagePath = data['data'];
+  //     Fluttertoast.showToast(
+  //         msg: "This is Center Short Toast",
+  //         toastLength: Toast.LENGTH_SHORT,
+  //         gravity: ToastGravity.CENTER,
+  //         timeInSecForIosWeb: 1,
+  //         backgroundColor: Colors.red,
+  //         textColor: Colors.white,
+  //         fontSize: 16.0,
+  //     );
+  //     print('Image' + request.toString());
+  //     print('ImagePath' + responseBody.toString());
+  //     return ApiReturnFoto(value: imagePath, message: '');
+  //   } else {
+  //     return ApiReturnFoto(message: 'Upload Photo Gagal ', value: '');
+  //   }
+  // }
 
-  static Future<ApiReturnFoto<String>> uploadPhoto(File photoFile,
-      {String? token, http.MultipartRequest? request}) async {
-    String url = 'https://dashboard.parentoday.com/api/user/photo';
-    var uri = Uri.parse(url);
+  // Uint8List? _bytesData;
+  // List<int>? _selectedFile;
 
-    if (request == null) {
-      request = http.MultipartRequest('POST', uri)
-        ..headers["Content-Type"] = "application/json"
-        ..headers["Authorization"] = "Bearer ${token}";
-    }
+  // startWebFilePicker() async {
+  //   html.FileUploadInputElement uploadInput = html.FileUploadInputElement();
+  //   uploadInput.multiple = true;
+  //   uploadInput.draggable = true;
+  //   uploadInput.click();
+  //
+  //   uploadInput.onChange.listen((event) {
+  //     final files = uploadInput.files;
+  //     final file = files![0];
+  //     final reader = html.FileReader();
+  //
+  //     reader.onLoadEnd.listen((event) {
+  //       setState(() {
+  //         _bytesData =
+  //             Base64Decoder().convert(reader.result.toString().split(",").last);
+  //         _selectedFile = _bytesData;
+  //       });
+  //     });
+  //     reader.readAsDataUrl(file);
+  //   });
+  // }
 
-    var multiPartFile =
-        await http.MultipartFile.fromPath('file', photoFile.path);
-    request.files.add(multiPartFile);
+  // Future uploadImage() async {
+  //   var url = Uri.parse('https://dashboard.parentoday.com/api/user/photo');
+  //   var request = http.MultipartRequest('POST', url);
+  //   request.files.add(
+  //     await http.MultipartFile.fromBytes(
+  //       'file',
+  //       _selectedFile!,
+  //       contentType: MediaType('application', 'json'),
+  //       filename: 'Any_name',
+  //     ),
+  //   );
+  //   request.send().then((response) {
+  //     if (response.statusCode == 200) {
+  //       print('File uploaded successfull');
+  //     } else {
+  //       print('File uploaded failed');
+  //     }
+  //   });
+  // }
 
-    var response = await request.send();
-    String responseBody1 = await response.stream.bytesToString();
-    print("PHOTO1 " + responseBody1.toString());
+  // Future<void> main() async {
+  //   // HttpClient can be used in browser too!
+  //   HttpClient httpClient = newUniversalHttpClient(); // Recommended way of creating HttpClient.
+  //   final request = await httpClient.getUrl(Uri.parse("https://dashboard.parentoday.com/api/user/photo"));
+  //   final response = await request.close();
+  //   print('coba ' + request.toString());
+  // }
 
-    if (response.statusCode == 200) {
-      String responseBody = await response.stream.bytesToString();
-      var data = jsonDecode(responseBody);
-      print("PHOTO " + responseBody.toString());
+  // Future<void> main() async {
+  //   // HttpClient can be used in browser too!
+  //   HttpClient httpClient = newUniversalHttpClient(); // Recommended way of creating HttpClient.
+  //   final request = await httpClient.getUrl(Uri.parse("https://dart.dev/"));
+  //   final response = await request.close();
+  // }
 
-      String imagePath = data['data'];
+  // Uint8List? _imageData;
+  //
+  // Future<void> _pickImage() async {
+  //   final pickedImage = await ImagePickerWeb.getImageInfo;
+  //   if (pickedImage != null) {
+  //     setState(() {
+  //       _imageData = pickedImage.data;
+  //     });
+  //
+  //     // Upload the image to the backend
+  //     await _uploadImageToBackend(_imageData!);
+  //   }
+  // }
 
-      Fluttertoast.showToast(
-          msg: "This is Center Short Toast",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );
-
-      return ApiReturnFoto(value: imagePath, message: '');
-    } else {
-      return ApiReturnFoto(message: 'Upload Photo Gagal ', value: '');
-    }
-  }
+  // Future<void> _uploadImageToBackend() async {
+  //   final url =
+  //       'https://dashboard.parentoday.com/api/user/photo'; // Replace with your actual backend endpoint
+  //   var response = await http.post(
+  //     Uri.parse(url),
+  //   );
+  //
+  //   if (response.statusCode == 200) {
+  //     print('Image uploaded successfully');
+  //   } else {
+  //     print('Failed to upload image. Status code: ${response.statusCode}');
+  //   }
+  // }
 
   @override
   void initState() {
@@ -148,7 +239,7 @@ class _editState extends State<edit> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 100),
+            SizedBox(height: 100),
             Stack(
               fit: StackFit.loose,
               alignment: Alignment.topCenter,
@@ -156,38 +247,55 @@ class _editState extends State<edit> {
                 Positioned(
                   child: GestureDetector(
                     onTap: () {
-                      _pickImage();
+                      // startWebFilePicker();
+                      // _pickImage();
                     },
-                    child: _pickedImage == null
-                        ? Container(
-                            width: 120,
-                            height: 120,
-                            decoration: BoxDecoration(
-                              // color: Colors.red,
-                              borderRadius: BorderRadius.circular(100),
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage('assets/mom.png'),
-                                // image: NetworkImage(imageUrl ?? ''),
-                                // image: NetworkImage(
-                                //     widget.dataUser.profile_photo_url ?? '',
-                                //     ),
-                              ),
-                            ),
-                          )
-                        : Container(
-                            width: 120,
-                            height: 120,
-                            decoration: BoxDecoration(
-                              // color: Colors.red,
-                              borderRadius: BorderRadius.circular(100),
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: MemoryImage(webImage),
-                                // image: FileImage(_pickedImage!),
-                              ),
-                            ),
-                          ),
+                    child: Container(
+                      width: 120,
+                      height: 120,
+                      decoration: BoxDecoration(
+                        borderRadius:
+                        BorderRadius.circular(100),
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(imageUrl ?? ''),
+                          // image: NetworkImage(snapshot
+                          //         .dataUser!
+                          //         .profile_photo_url ??
+                          //     ''),
+                        ),
+                      ),
+                    ),
+                    // _pickedImage == null ?
+                    // Container(
+                    //         width: 120,
+                    //         height: 120,
+                    //         decoration: BoxDecoration(
+                    //           // color: Colors.red,
+                    //           borderRadius: BorderRadius.circular(100),
+                    //           image: const DecorationImage(
+                    //             fit: BoxFit.cover,
+                    //             // image: AssetImage('assets/mom.png'),
+                    //             image: NetworkImage(imageUrl ?? ''),
+                    //             // image: NetworkImage(
+                    //             //     widget.dataUser.profile_photo_url ?? '',
+                    //             //     ),
+                    //           ),
+                    //         ),
+                    //       ),
+                        // : Container(
+                        //     width: 120,
+                        //     height: 120,
+                        //     decoration: BoxDecoration(
+                        //       // color: Colors.red,
+                        //       borderRadius: BorderRadius.circular(100),
+                        //       image: DecorationImage(
+                        //         fit: BoxFit.cover,
+                        //         image: MemoryImage(webImage),
+                        //         // image: NetworkImage(webImage.toString()),
+                        //       ),
+                        //     ),
+                        //   ),
                   ),
                 ),
                 Positioned(
@@ -206,7 +314,7 @@ class _editState extends State<edit> {
                 ),
               ],
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: 30),
             SizedBox(
               height: MediaQuery.of(context).size.height - 380,
               child: Column(
@@ -215,7 +323,6 @@ class _editState extends State<edit> {
                   Container(
                     constraints: const BoxConstraints(maxWidth: 500),
                     width: MediaQuery.of(context).size.width - 78,
-                    // padding: EdgeInsets.only(left: 16, right: 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -229,6 +336,7 @@ class _editState extends State<edit> {
                         ),
                         const SizedBox(height: 5),
                         TextField(
+                          cursorColor: 'FF6969'.toColor(),
                           controller: namaAndaEditingController,
                           decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
@@ -254,12 +362,13 @@ class _editState extends State<edit> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () async {
+                    onTap: () {
                       setState(() {
                         isLoading = true;
                       });
                       saveData(namaAndaEditingController.text);
-                      uploadPhoto(_pickedImage!);
+                      // uploadPhoto(_pickedImage!);
+                      // _uploadImageToBackend();
                     },
                     child: Container(
                       alignment: Alignment.center,

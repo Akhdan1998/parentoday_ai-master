@@ -3,7 +3,7 @@ part of 'pages.dart';
 class HomePage extends StatefulWidget {
   final token;
 
-  HomePage(this.token, {super.key});
+  const HomePage(this.token, {super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -40,6 +40,7 @@ class _HomePageState extends State<HomePage> {
   bool isLoading = false;
   bool showOverlay = false;
   bool show = false;
+  bool showContoh = false;
 
   String? time;
 
@@ -145,7 +146,7 @@ class _HomePageState extends State<HomePage> {
     var res = await http.post(
       url_,
       body: {
-        'prompt': tanya2.text,
+        'prompt': tanya3.text,
         'random_id': (selectedRandomId != null) ? selectedRandomId : time,
       },
       headers: {
@@ -222,7 +223,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.white, elevation: 0),
+                      backgroundColor: Colors.white, elevation: 0),
                   onPressed: _openEndDrawer,
                   child: Icon(
                     Icons.menu,
@@ -240,159 +241,176 @@ class _HomePageState extends State<HomePage> {
                 return Stack(
                   alignment: Alignment.center,
                   children: [
-                    Positioned(
-                      top: 0,
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        padding: EdgeInsets.all(15),
-                        color: 'FFF4F4'.toColor(),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset('assets/parentoday.png', scale: 2),
-                            SizedBox(width: 10),
-                            Container(
-                              constraints: const BoxConstraints(maxWidth: 800),
-                              width: MediaQuery.of(context).size.width - 78,
-                              child: Column(
+                    (showContoh != true)
+                        ? Positioned(
+                            top: 0,
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              padding: const EdgeInsets.all(15),
+                              color: 'FFF4F4'.toColor(),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'Selamat datang di AI Parenting! Saya siap membantu Anda sebagai orang tua dengan saran dan dukungan dalam mengasuh anak-anak Anda dari bayi hingga remaja. Tanya saja tentang nutrisi, jadwal tidur, pengembangan emosional, dan aktivitas bermain yang menyenangkan.',
-                                    style: GoogleFonts.poppins().copyWith(
-                                      fontSize: 12,
-                                      color: '484848'.toColor(),
+                                  Image.asset('assets/parentoday.png',
+                                      scale: 2),
+                                  SizedBox(width: 10),
+                                  Container(
+                                    constraints:
+                                        const BoxConstraints(maxWidth: 800),
+                                    width:
+                                        MediaQuery.of(context).size.width - 78,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Selamat datang di AI Parenting! Saya siap membantu Anda sebagai orang tua dengan saran dan dukungan dalam mengasuh anak-anak Anda dari bayi hingga remaja. Tanya saja tentang nutrisi, jadwal tidur, pengembangan emosional, dan aktivitas bermain yang menyenangkan.',
+                                          style: GoogleFonts.poppins().copyWith(
+                                            fontSize: 12,
+                                            color: '484848'.toColor(),
+                                          ),
+                                        ),
+                                        SizedBox(height: 9),
+                                        Text(
+                                          'Contoh:',
+                                          style: GoogleFonts.poppins().copyWith(
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.bold,
+                                            color: '484848'.toColor(),
+                                          ),
+                                        ),
+                                        SizedBox(height: 9),
+                                        Wrap(
+                                          spacing: 8,
+                                          runSpacing: 8,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () async {
+                                                focusNode.unfocus();
+
+                                                if (tanya1.text.isNotEmpty) {
+                                                  setState(() {
+                                                    isLoading = true;
+                                                    show = true;
+                                                    context.loaderOverlay
+                                                        .show();
+                                                  });
+                                                  await contoh1()
+                                                      .whenComplete(() {
+                                                    setState(() {
+                                                      isLoading = false;
+                                                      show = false;
+                                                      showContoh = true;
+                                                      context.loaderOverlay
+                                                          .hide();
+                                                    });
+                                                  });
+                                                }
+                                                context
+                                                    .read<HistoryCubit>()
+                                                    .getHistory(widget.token);
+                                              },
+                                              child: Chip(
+                                                backgroundColor:
+                                                    'FFE0E0'.toColor(),
+                                                label: Text(
+                                                  'Menangani tantrum pada anak',
+                                                  style: GoogleFonts.poppins()
+                                                      .copyWith(
+                                                    fontSize: 11,
+                                                    color: '484848'.toColor(),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            GestureDetector(
+                                              onTap: () async {
+                                                focusNode.unfocus();
+                                                if (tanya2.text.isNotEmpty) {
+                                                  setState(() {
+                                                    isLoading = true;
+                                                    show = true;
+                                                    context.loaderOverlay
+                                                        .show();
+                                                  });
+                                                  await contoh2()
+                                                      .whenComplete(() {
+                                                    setState(() {
+                                                      isLoading = false;
+                                                      show = false;
+                                                      showContoh = true;
+                                                      context.loaderOverlay
+                                                          .hide();
+                                                    });
+                                                  });
+                                                }
+                                                context
+                                                    .read<HistoryCubit>()
+                                                    .getHistory(widget.token);
+                                              },
+                                              child: Chip(
+                                                backgroundColor:
+                                                    'FFE0E0'.toColor(),
+                                                label: Text(
+                                                  'Resep mpasi untuk bayi',
+                                                  style: GoogleFonts.poppins()
+                                                      .copyWith(
+                                                    fontSize: 11,
+                                                    color: '484848'.toColor(),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            GestureDetector(
+                                              onTap: () async {
+                                                focusNode.unfocus();
+
+                                                if (tanya3.text.isNotEmpty) {
+                                                  setState(() {
+                                                    isLoading = true;
+                                                    show = true;
+                                                    context.loaderOverlay
+                                                        .show();
+                                                  });
+                                                  await contoh3()
+                                                      .whenComplete(() {
+                                                    setState(() {
+                                                      isLoading = false;
+                                                      show = false;
+                                                      showContoh = true;
+                                                      context.loaderOverlay
+                                                          .hide();
+                                                    });
+                                                  });
+                                                }
+                                                context
+                                                    .read<HistoryCubit>()
+                                                    .getHistory(widget.token);
+                                              },
+                                              child: Chip(
+                                                backgroundColor:
+                                                    'FFE0E0'.toColor(),
+                                                label: Text(
+                                                  'Cara mengatasi anak susah makan',
+                                                  style: GoogleFonts.poppins()
+                                                      .copyWith(
+                                                    fontSize: 11,
+                                                    color: '484848'.toColor(),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      ],
                                     ),
                                   ),
-                                  SizedBox(height: 9),
-                                  Text(
-                                    'Contoh:',
-                                    style: GoogleFonts.poppins().copyWith(
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.bold,
-                                      color: '484848'.toColor(),
-                                    ),
-                                  ),
-                                  SizedBox(height: 9),
-                                  Wrap(
-                                    spacing: 8,
-                                    runSpacing: 8,
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () async {
-                                          focusNode.unfocus();
-
-                                          if (tanya1.text.isNotEmpty) {
-                                            setState(() {
-                                              isLoading = true;
-                                              show = true;
-                                              context.loaderOverlay.show();
-                                            });
-                                            await contoh1().whenComplete(() {
-                                              setState(() {
-                                                isLoading = false;
-                                                show = false;
-                                                context.loaderOverlay.hide();
-                                                tanya1.text = '';
-                                              });
-                                            });
-                                          }
-                                          context
-                                              .read<HistoryCubit>()
-                                              .getHistory(widget.token);
-                                        },
-                                        child: Chip(
-                                          backgroundColor: 'FFE0E0'.toColor(),
-                                          label: Text(
-                                            'Menangani tantrum pada anak',
-                                            style:
-                                            GoogleFonts.poppins().copyWith(
-                                              fontSize: 11,
-                                              color: '484848'.toColor(),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      GestureDetector(
-                                        onTap: () async {
-                                          focusNode.unfocus();
-
-                                          if (tanya2.text.isNotEmpty) {
-                                            setState(() {
-                                              isLoading = true;
-                                              show = true;
-                                              context.loaderOverlay.show();
-                                            });
-                                            await contoh2().whenComplete(() {
-                                              setState(() {
-                                                isLoading = false;
-                                                show = false;
-                                                context.loaderOverlay.hide();
-                                                tanya2.text = '';
-                                              });
-                                            });
-                                          }
-                                          context
-                                              .read<HistoryCubit>()
-                                              .getHistory(widget.token);
-                                        },
-                                        child: Chip(
-                                          backgroundColor: 'FFE0E0'.toColor(),
-                                          label: Text(
-                                            'Resep mpasi untuk bayi',
-                                            style:
-                                                GoogleFonts.poppins().copyWith(
-                                              fontSize: 11,
-                                              color: '484848'.toColor(),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      GestureDetector(
-                                        onTap: () async {
-                                          focusNode.unfocus();
-
-                                          if (tanya3.text.isNotEmpty) {
-                                            setState(() {
-                                              isLoading = true;
-                                              show = true;
-                                              context.loaderOverlay.show();
-                                            });
-                                            await contoh3().whenComplete(() {
-                                              setState(() {
-                                                isLoading = false;
-                                                show = false;
-                                                context.loaderOverlay.hide();
-                                                tanya3.text = '';
-                                              });
-                                            });
-                                          }
-                                          context
-                                              .read<HistoryCubit>()
-                                              .getHistory(widget.token);
-                                        },
-                                        child: Chip(
-                                          backgroundColor: 'FFE0E0'.toColor(),
-                                          label: Text(
-                                            'Cara mengatasi anak susah makan',
-                                            style:
-                                                GoogleFonts.poppins().copyWith(
-                                              fontSize: 11,
-                                              color: '484848'.toColor(),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  )
                                 ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
+                          )
+                        : Container(),
                     Positioned(
                       top: 0,
                       child: Container(
@@ -486,7 +504,7 @@ class _HomePageState extends State<HomePage> {
                                             show = false;
                                             context.loaderOverlay.hide();
                                             pertanyaan.text = '';
-                                            // Navigator.pop(context);
+                                            showContoh = true;
                                           });
                                         });
                                       }
@@ -535,6 +553,7 @@ class _HomePageState extends State<HomePage> {
                                           show = false;
                                           context.loaderOverlay.hide();
                                           pertanyaan.text = '';
+                                          showContoh = true;
                                         });
                                       });
                                     }
@@ -593,7 +612,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
+            children: [
               Padding(
                 padding: const EdgeInsets.all(15),
                 child: Column(
@@ -619,11 +638,11 @@ class _HomePageState extends State<HomePage> {
                                           borderRadius:
                                               BorderRadius.circular(50),
                                           image: DecorationImage(
-                                            // image: NetworkImage(imageUrl ?? ''),
-                                            image: NetworkImage(snapshot
-                                                    .dataUser!
-                                                    .profile_photo_url ??
-                                                ''),
+                                            image: NetworkImage(imageUrl ?? ''),
+                                            // image: NetworkImage(snapshot
+                                            //         .dataUser!
+                                            //         .profile_photo_url ??
+                                            //     ''),
                                           ),
                                         ),
                                       ),
@@ -688,8 +707,10 @@ class _HomePageState extends State<HomePage> {
                         context.read<AiCubit>().getAi(widget.token, '');
 
                         setState(() {
+                          time = DateTime.now().millisecondsSinceEpoch.toString();
                           selectedRandomId = null;
                           showChat = false;
+                          showContoh = false;
                         });
                         Navigator.of(context).pop();
                       },
@@ -721,7 +742,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             const SizedBox(width: 5),
-                            Icon(Icons.add),
+                            Icon(Icons.add, color: '616161'.toColor()),
                           ],
                         ),
                       ),
