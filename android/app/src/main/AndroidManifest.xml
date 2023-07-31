@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.timun.parentoday_ai">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="parentoday_ai"
         android:name="${applicationName}"

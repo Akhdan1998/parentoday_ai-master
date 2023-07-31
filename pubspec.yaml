@@ -50,6 +50,9 @@ dependencies:
   fluttertoast: ^8.2.2
   universal_io: ^2.2.2
   image_picker_web: ^3.0.0+1
+  file_picker: ^4.6.1
+  dio: ^4.0.0
+
 
 dev_dependencies:
   flutter_test:

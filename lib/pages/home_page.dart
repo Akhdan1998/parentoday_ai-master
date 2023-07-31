@@ -427,8 +427,8 @@ class _HomePageState extends State<HomePage> {
                                     children: snapshot.ai!
                                         .mapIndexed(
                                           (int index, e) => (e.role == "user")
-                                              ? ChatUserCard(e, widget.token
-                                                  // state.dataUser.toString(),
+                                              ? ChatUserCard(e, widget.token,
+                                                  state.dataUser.toString(),
                                                   )
                                               : ChatRobotCard(e, widget.token),
                                         )
@@ -637,14 +637,15 @@ class _HomePageState extends State<HomePage> {
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(50),
-                                          image: DecorationImage(
-                                            image: NetworkImage(imageUrl ?? ''),
-                                            // image: NetworkImage(snapshot
-                                            //         .dataUser!
-                                            //         .profile_photo_url ??
-                                            //     ''),
-                                          ),
+                                          // image: DecorationImage(
+                                          //   // image: NetworkImage(imageUrl ?? ''),
+                                          //   image: ,
+                                          // ),
                                         ),
+                                        child: Image.network(snapshot
+                                            .dataUser!
+                                            .profile_photo_url ??
+                                            ''),
                                       ),
                                       const SizedBox(width: 10),
                                       Column(

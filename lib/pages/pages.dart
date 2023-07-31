@@ -1,9 +1,13 @@
 import 'dart:convert';
-// import 'dart:html';
+import 'dart:math';
+import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/services.dart';
+import 'dart:html' as html;
 import 'package:get/get_connect/http/src/request/request.dart';
 import 'package:image_picker_web/image_picker_web.dart';
 import 'package:universal_io/io.dart';
-import 'dart:io';
+// import 'dart:io';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +35,10 @@ import '../services/LogReg_services.dart';
 import '../widgets/widgets.dart';
 import 'dart:typed_data';
 import 'package:http_parser/http_parser.dart';
-import 'package:universal_io/io.dart';
+import 'package:file_picker/file_picker.dart';
+
+import 'package:flutter/widgets.dart';
+
 part 'edit.dart';
 
 part 'list_history.dart';
