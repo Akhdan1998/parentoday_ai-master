@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_flushbar/flutter_flushbar.dart';
 import 'dart:html' as html;
 import 'package:get/get_connect/http/src/request/request.dart';
 import 'package:image_picker_web/image_picker_web.dart';

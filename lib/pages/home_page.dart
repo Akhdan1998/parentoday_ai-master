@@ -427,8 +427,8 @@ class _HomePageState extends State<HomePage> {
                                     children: snapshot.ai!
                                         .mapIndexed(
                                           (int index, e) => (e.role == "user")
-                                              ? ChatUserCard(e, widget.token,
-                                                  state.dataUser.toString(),
+                                              ? ChatUserCard(e, widget.token
+                                                  // state.dataUser.toString(),
                                                   )
                                               : ChatRobotCard(e, widget.token),
                                         )
@@ -463,7 +463,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ],
                         ),
-                        height: 125,
+                        height: 127,
                         padding: const EdgeInsets.only(
                             top: 11, bottom: 20, right: 16, left: 16),
                         child: Column(
@@ -508,6 +508,9 @@ class _HomePageState extends State<HomePage> {
                                           });
                                         });
                                       }
+                                      context
+                                          .read<HistoryCubit>()
+                                          .getHistory(widget.token);
                                     },
                                     focusNode: focusNode,
                                     textCapitalization:
@@ -631,21 +634,11 @@ class _HomePageState extends State<HomePage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Container(
-                                        width: 35,
-                                        height: 35,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                          // image: DecorationImage(
-                                          //   // image: NetworkImage(imageUrl ?? ''),
-                                          //   image: ,
-                                          // ),
-                                        ),
-                                        child: Image.network(snapshot
-                                            .dataUser!
-                                            .profile_photo_url ??
-                                            ''),
+                                      CircleAvatar(
+                                        radius: 18,
+                                        backgroundImage: NetworkImage(
+                                            snapshot.dataUser!.profile_photo_url ?? ''),
+                                        backgroundColor: Colors.white,
                                       ),
                                       const SizedBox(width: 10),
                                       Column(

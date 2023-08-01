@@ -3,10 +3,10 @@ part of 'widgets.dart';
 class ChatUserCard extends StatefulWidget {
   final Ai aiModel;
 
-  final DataUser userData;
+  // final DataUser userData;
   final String token;
 
-  ChatUserCard(this.aiModel, this.userData, this.token);
+  ChatUserCard(this.aiModel, this.token);
 
   @override
   State<ChatUserCard> createState() => _ChatUserCardState();
@@ -28,15 +28,13 @@ class _ChatUserCardState extends State<ChatUserCard> {
             height: 26,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(3),
-              // image: DecorationImage(
+              image: DecorationImage(
                 // image: NetworkImage(
                 //   widget.userData.profile_photo_url ?? '',
                 // ),
-                // image: NetworkImage(imageUrl ?? ''),
-              // ),
+                image: NetworkImage(imageUrl ?? ''),
+              ),
             ),
-            child: Image.network(
-                widget.userData.profile_photo_url ?? ''),
           ),
           const SizedBox(width: 10),
           Container(
