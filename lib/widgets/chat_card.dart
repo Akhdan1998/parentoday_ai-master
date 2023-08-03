@@ -28,17 +28,13 @@ class _ChatUserCardState extends State<ChatUserCard> {
             height: 26,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(3),
-              image: DecorationImage(fit: BoxFit.cover,
+              image: DecorationImage(
+                fit: BoxFit.cover,
                 image: NetworkImage(
                   widget.userData.profile_photo_url ?? '',
                 ),
-              // image: NetworkImage(imageUrl ?? ''),
               ),
             ),
-            // child: Image.network(
-            //   widget.userData.profile_photo_url ?? '',
-            //   fit: BoxFit.cover,
-            // ),
           ),
           const SizedBox(width: 10),
           Container(
