@@ -427,9 +427,11 @@ class _HomePageState extends State<HomePage> {
                                     children: snapshot.ai!
                                         .mapIndexed(
                                           (int index, e) => (e.role == "user")
-                                              ? ChatUserCard(e, widget.token
-                                                  // state.dataUser.toString(),
-                                                  )
+                                              ? ChatUserCard(
+                                                  e,
+                                                  state.dataUser!,
+                                                  widget.token,
+                                                )
                                               : ChatRobotCard(e, widget.token),
                                         )
                                         .toList(),
@@ -636,8 +638,9 @@ class _HomePageState extends State<HomePage> {
                                     children: [
                                       CircleAvatar(
                                         radius: 18,
-                                        backgroundImage: NetworkImage(
-                                            snapshot.dataUser!.profile_photo_url ?? ''),
+                                        backgroundImage: NetworkImage(snapshot
+                                                .dataUser!.profile_photo_url ??
+                                            ''),
                                         backgroundColor: Colors.white,
                                       ),
                                       const SizedBox(width: 10),
@@ -701,7 +704,8 @@ class _HomePageState extends State<HomePage> {
                         context.read<AiCubit>().getAi(widget.token, '');
 
                         setState(() {
-                          time = DateTime.now().millisecondsSinceEpoch.toString();
+                          time =
+                              DateTime.now().millisecondsSinceEpoch.toString();
                           selectedRandomId = null;
                           showChat = false;
                           showContoh = false;

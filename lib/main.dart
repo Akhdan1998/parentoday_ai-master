@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
         color: 'FF6969'.toColor(),
         debugShowCheckedModeBanner: false,
         home: const LoginPage(),
+        // home: const HomePage(''),
       ),
     );
   }
