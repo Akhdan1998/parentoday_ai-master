@@ -23,7 +23,9 @@ class _HomePageState extends State<HomePage> {
     print("logout " + res.body.toString());
     if (res.statusCode == 200) {
       bool data = body["data"];
-      Get.to(
+      print("logout sukses ${res.body}");
+      print("logout token sukses ${widget.token}");
+      Get.offAll(
         const LoginPage(),
       );
     } else {
@@ -40,7 +42,6 @@ class _HomePageState extends State<HomePage> {
   bool isLoading = false;
   bool showOverlay = false;
   bool show = false;
-  bool showContoh = false;
 
   String? time;
 
@@ -74,13 +75,14 @@ class _HomePageState extends State<HomePage> {
       },
     );
     Map<String, dynamic> body = jsonDecode(res.body);
+    print('jjjjjjjj ' + res.body.toString());
     if (res.statusCode == 200) {
       List<Ai> value =
           (body['data'] as Iterable).map((e) => Ai.fromJson(e)).toList();
 
       await context.read<AiCubit>().getAi(
           widget.token, (selectedRandomId != null) ? selectedRandomId! : time!);
-
+      print('randomId sukses ' + selectedRandomId.toString());
       return value;
     } else {
       throw "Error ${res.statusCode} => ${body["meta"]["message"]}";
@@ -161,7 +163,6 @@ class _HomePageState extends State<HomePage> {
 
       await context.read<AiCubit>().getAi(
           widget.token, (selectedRandomId != null) ? selectedRandomId! : time!);
-
       return value;
     } else {
       throw "Error ${res.statusCode} => ${body["meta"]["message"]}";
@@ -169,10 +170,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  void _openEndDrawer() {
-    _scaffoldKey.currentState!.openEndDrawer();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -189,45 +186,28 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           automaticallyImplyLeading: false,
-          elevation: 1,
+          elevation: 5,
+          iconTheme: IconThemeData(color: '737373'.toColor()),
           title: Container(
             width: MediaQuery.of(context).size.width,
             constraints: const BoxConstraints(maxWidth: 800),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'A.I Parentoday',
-                      style: GoogleFonts.poppins().copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: '5E5E5E'.toColor(),
-                        fontSize: 12,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 290,
-                      child: Text(
-                        'Menjawab semua masalah parentingmu dengan cepat dan efisien',
-                        maxLines: 2,
-                        style: GoogleFonts.poppins().copyWith(
-                          fontWeight: FontWeight.w300,
-                          color: '959595'.toColor(),
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
-                  ],
+                Text(
+                  'A.I Parentoday',
+                  style: GoogleFonts.poppins().copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: '5E5E5E'.toColor(),
+                    fontSize: 12,
+                  ),
                 ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white, elevation: 0),
-                  onPressed: _openEndDrawer,
-                  child: Icon(
-                    Icons.menu,
-                    color: '737373'.toColor(),
+                Text(
+                  'Menjawab semua masalah parentingmu dengan cepat dan efisien',
+                  style: GoogleFonts.poppins().copyWith(
+                    fontWeight: FontWeight.w300,
+                    color: '959595'.toColor(),
+                    fontSize: 11,
                   ),
                 ),
               ],
@@ -415,7 +395,7 @@ class _HomePageState extends State<HomePage> {
                       top: 0,
                       child: Container(
                         height: MediaQuery.of(context).size.height - 60 - 80,
-                        padding: const EdgeInsets.only(bottom: 40),
+                        padding: const EdgeInsets.only(bottom: 10),
                         child: SingleChildScrollView(
                           scrollDirection: Axis.vertical,
                           reverse: true,
@@ -465,9 +445,8 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ],
                         ),
-                        height: 127,
                         padding: const EdgeInsets.only(
-                            top: 11, bottom: 20, right: 16, left: 16),
+                            top: 11, bottom: 11, right: 16, left: 16),
                         child: Column(
                           children: [
                             (show == true)
@@ -545,7 +524,6 @@ class _HomePageState extends State<HomePage> {
                                 GestureDetector(
                                   onTap: () async {
                                     focusNode.unfocus();
-
                                     if (pertanyaan.text.isNotEmpty) {
                                       setState(() {
                                         isLoading = true;
@@ -614,139 +592,145 @@ class _HomePageState extends State<HomePage> {
         ),
         endDrawer: Drawer(
           backgroundColor: Colors.white,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Stack(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(15),
-                child: Column(
-                  children: [
-                    BlocBuilder<DataUserCubit, DataUserState>(
-                      builder: (context, snapshot) {
-                        if (snapshot is DataUserLoaded) {
-                          if (snapshot.dataUser != null) {
-                            return SizedBox(
-                              width: MediaQuery.of(context).size.width,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+              Positioned(
+                top: 15,
+                left: 15,
+                right: 15,
+                child: BlocBuilder<DataUserCubit, DataUserState>(
+                  builder: (context, snapshot) {
+                    if (snapshot is DataUserLoaded) {
+                      if (snapshot.dataUser != null) {
+                        return SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      CircleAvatar(
-                                        radius: 18,
-                                        backgroundImage: NetworkImage(snapshot
-                                                .dataUser!.profile_photo_url ??
+                                  CircleAvatar(
+                                    radius: 18,
+                                    backgroundImage: NetworkImage(
+                                        snapshot.dataUser!.profile_photo_url ??
                                             ''),
-                                        backgroundColor: Colors.white,
+                                    backgroundColor: Colors.white,
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Column(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        snapshot.dataUser!.nama ?? '',
+                                        style: GoogleFonts.poppins().copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: '424242'.toColor(),
+                                          fontSize: 11,
+                                        ),
                                       ),
-                                      const SizedBox(width: 10),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            snapshot.dataUser!.nama ?? '',
-                                            style:
-                                                GoogleFonts.poppins().copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              color: '424242'.toColor(),
-                                              fontSize: 11,
-                                            ),
-                                          ),
-                                          Text(
-                                            snapshot.dataUser!.email ?? '',
-                                            style:
-                                                GoogleFonts.poppins().copyWith(
-                                              fontWeight: FontWeight.w300,
-                                              color: '555555'.toColor(),
-                                              fontSize: 10,
-                                            ),
-                                          ),
-                                        ],
+                                      Text(
+                                        snapshot.dataUser!.email ?? '',
+                                        style: GoogleFonts.poppins().copyWith(
+                                          fontWeight: FontWeight.w300,
+                                          color: '555555'.toColor(),
+                                          fontSize: 10,
+                                        ),
                                       ),
                                     ],
                                   ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.to(
-                                        edit(
-                                          snapshot.dataUser!,
-                                          widget.token,
-                                        ),
-                                      );
-                                    },
-                                    child: Container(
-                                      color: Colors.white,
-                                      child: Image.asset(
-                                        'assets/edit.png',
-                                        scale: 2.5,
-                                      ),
-                                    ),
-                                  ),
                                 ],
                               ),
-                            );
-                          } else {
-                            return const SizedBox();
-                          }
-                        } else {
-                          return const SizedBox();
-                        }
-                      },
-                    ),
-                    const SizedBox(height: 15),
-                    GestureDetector(
-                      onTap: () {
-                        context.read<AiCubit>().getAi(widget.token, '');
-
-                        setState(() {
-                          time =
-                              DateTime.now().millisecondsSinceEpoch.toString();
-                          selectedRandomId = null;
-                          showChat = false;
-                          showContoh = false;
-                        });
-                        Navigator.of(context).pop();
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.only(
-                            left: 10, right: 5, top: 5, bottom: 5),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 1,
-                              offset: const Offset(
-                                  0, 0), // changes position of shadow
-                            ),
-                          ],
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Pertanyaan Baru',
-                              style: GoogleFonts.poppins().copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10,
-                                color: '6D6D6D'.toColor(),
+                              GestureDetector(
+                                onTap: () {
+                                  Get.to(
+                                    edit(
+                                      snapshot.dataUser!,
+                                      widget.token,
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  color: Colors.white,
+                                  child: Image.asset(
+                                    'assets/edit.png',
+                                    scale: 2.5,
+                                  ),
+                                ),
                               ),
-                            ),
-                            const SizedBox(width: 5),
-                            Icon(Icons.add, color: '616161'.toColor()),
-                          ],
+                            ],
+                          ),
+                        );
+                      } else {
+                        return const SizedBox();
+                      }
+                    } else {
+                      return const SizedBox();
+                    }
+                  },
+                ),
+              ),
+              Positioned(
+                right: 15,
+                left: 15,
+                top: 60,
+                child: GestureDetector(
+                  onTap: () {
+                    context.read<AiCubit>().getAi(widget.token, '');
+
+                    setState(() {
+                      time = DateTime.now().millisecondsSinceEpoch.toString();
+                      selectedRandomId = null;
+                      showChat = false;
+                      showContoh = false;
+                    });
+                    Navigator.of(context).pop();
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    padding: const EdgeInsets.only(
+                        left: 10, right: 5, top: 5, bottom: 5),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 1,
+                          offset:
+                          const Offset(0, 0), // changes position of shadow
                         ),
-                      ),
+                      ],
                     ),
-                    const SizedBox(height: 15),
-                    BlocBuilder<HistoryCubit, HistoryState>(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Pertanyaan Baru',
+                          style: GoogleFonts.poppins().copyWith(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 10,
+                            color: '6D6D6D'.toColor(),
+                          ),
+                        ),
+                        const SizedBox(width: 5),
+                        Icon(Icons.add, color: '616161'.toColor()),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 105,
+                left: 15,
+                right: 15,
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height - 140,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: BlocBuilder<HistoryCubit, HistoryState>(
                       builder: (context, headshot) {
                         if (headshot is HistoryLoaded) {
                           if (headshot.history != null) {
@@ -765,59 +749,64 @@ class _HomePageState extends State<HomePage> {
                         }
                       },
                     ),
-                  ],
+                  ),
                 ),
               ),
-              Column(
-                children: [
-                  Divider(
-                    thickness: 1.5,
-                    color: 'C3C3C3'.toColor(),
-                    height: 5,
-                  ),
-                  GestureDetector(
-                    onTap: () async {
-                      setState(() {
-                        isLoading = true;
-                      });
-                      await signOut().then((result) {
-                        print(result);
-                        logout(widget.token);
-                      }).catchError((error) {
-                        print('SignOut Error: $error');
-                      });
-                    },
-                    child: Container(
-                      padding:
-                          const EdgeInsets.only(left: 15, top: 10, bottom: 10),
-                      color: Colors.white,
-                      child: (isLoading == true)
-                          ? Center(
-                              child: Container(
-                                width: 20,
-                                height: 20,
-                                child: CircularProgressIndicator(
-                                  color: 'FF6969'.toColor(),
-                                ),
-                              ),
-                            )
-                          : Row(
-                              children: [
-                                const Icon(Icons.logout, size: 18),
-                                const SizedBox(width: 10),
-                                Text(
-                                  'Sign Out',
-                                  style: GoogleFonts.poppins().copyWith(
-                                    fontWeight: FontWeight.w300,
-                                    color: '555555'.toColor(),
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ],
-                            ),
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: Column(
+                  children: [
+                    Divider(
+                      thickness: 1.5,
+                      color: 'C3C3C3'.toColor(),
+                      height: 1,
                     ),
-                  ),
-                ],
+                    GestureDetector(
+                      onTap: () async {
+                        setState(() {
+                          isLoading = true;
+                        });
+                        await signOut().then((result) {
+                          print(result);
+                          logout(widget.token);
+                        }).catchError((error) {
+                          print('SignOut Error: $error');
+                        });
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.only(
+                            left: 15, top: 10, bottom: 10),
+                        color: Colors.white,
+                        child: (isLoading == true)
+                            ? Center(
+                          child: Container(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              color: 'FF6969'.toColor(),
+                            ),
+                          ),
+                        )
+                            : Row(
+                          children: [
+                            const Icon(Icons.logout, size: 18),
+                            const SizedBox(width: 10),
+                            Text(
+                              'Sign Out',
+                              style: GoogleFonts.poppins().copyWith(
+                                fontWeight: FontWeight.w300,
+                                color: '555555'.toColor(),
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

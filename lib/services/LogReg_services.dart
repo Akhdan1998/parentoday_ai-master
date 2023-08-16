@@ -7,9 +7,9 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'dart:math';
 import '../models/api_return_foto.dart';
+import '../models/auth.dart';
 import '../models/logreg.dart';
 import '../pages/pages.dart';
-
 // File? _pickedImage;
 
 // Future<ApiReturnFoto<String>> uploadPhoto(File photoFile,
@@ -37,7 +37,6 @@ import '../pages/pages.dart';
 //     return ApiReturnFoto(message: 'Upload Photo Gagal ', value: '');
 //   }
 // }
-
 void LogRegGoogle(
     String name, String userEmail, String uid, String imageUrl) async {
   Uri url_ = Uri.parse('https://dashboard.parentoday.com/api/login_register');
@@ -53,7 +52,6 @@ void LogRegGoogle(
   Map<String, dynamic> body = jsonDecode(res.body);
   if (res.statusCode == 200) {
     LoginUser data = LoginUser.fromJson(body['data']);
-
     // File imageFile = await urlToFile(imageUrl.toString());
 
     // print('gambar ' + imageFile.toString());

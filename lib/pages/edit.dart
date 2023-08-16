@@ -140,8 +140,8 @@ class _editState extends State<edit> {
                     },
                     child: _bytesData != null
                         ? Container(
-                            width: 120,
-                            height: 120,
+                            width: 135,
+                            height: 135,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(100),
                               image: DecorationImage(
@@ -153,8 +153,8 @@ class _editState extends State<edit> {
                         : (widget.dataUser.profile_photo_url ==
                                 "https://dashboard.parentoday.com/storage/")
                             ? Container(
-                                width: 120,
-                                height: 120,
+                                width: 135,
+                                height: 135,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(100),
                                   image: const DecorationImage(
@@ -163,12 +163,19 @@ class _editState extends State<edit> {
                                   ),
                                 ),
                               )
-                            : CircleAvatar(
-                                radius: 70,
-                                backgroundImage: NetworkImage(
-                                    widget.dataUser.profile_photo_url ?? ''),
-                                backgroundColor: Colors.white,
-                              ),
+                            : Container(
+                      width: 135,
+                      height: 135,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                              widget.dataUser.profile_photo_url ??
+                                  ''),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 Positioned(

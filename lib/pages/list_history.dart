@@ -23,7 +23,6 @@ class _list_historyState extends State<list_history> {
             context
                 .read<AiCubit>()
                 .getAi(widget.token, widget.history!.random_id ?? '');
-
             Navigator.of(context).pop();
           },
           child: Container(
@@ -38,12 +37,16 @@ class _list_historyState extends State<list_history> {
                   children: [
                     const Icon(Icons.chat_outlined, size: 20),
                     const SizedBox(width: 7),
-                    Text(
-                      widget.history!.title ?? '',
-                      style: GoogleFonts.poppins().copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: '555555'.toColor(),
-                        fontSize: 10,
+                    Container(
+                      width: MediaQuery.of(context).size.width - 287,
+                      child: Text(
+                        widget.history!.title ?? '',
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.poppins().copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: '555555'.toColor(),
+                          fontSize: 10,
+                        ),
                       ),
                     ),
                   ],
