@@ -43,7 +43,7 @@ class _list_historyState extends State<list_history> {
         margin: EdgeInsets.all(15),
         forwardAnimationCurve: Curves.decelerate,
         reverseAnimationCurve: Curves.easeOut,
-        message: "Berhasil menghapus pertanyaan!",
+        message: "Berhasil menghapus history!",
       ).show(context);
     } else {
       throw "Error ${res.statusCode} => ${body["meta"]["message"]}";
