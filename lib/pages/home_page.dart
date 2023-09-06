@@ -10,6 +10,36 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final tanya1 = TextEditingController(text: 'Menangani tantrum pada anak');
+  final tanya2 = TextEditingController(text: 'Resep mpasi untuk bayi');
+  final tanya3 = TextEditingController(text: 'Cara mengatasi anak susah makan');
+  final pertanyaan = TextEditingController();
+  final pertanyaanBaru = TextEditingController();
+
+  bool isLoading = false;
+  bool showOverlay = false;
+  bool show = false;
+  bool showContoh = false;
+
+  String? time;
+
+  FocusNode focusNode = FocusNode();
+
+  ScrollController? controller;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = ScrollController();
+
+    time = DateTime.now().millisecondsSinceEpoch.toString();
+    context.read<AiCubit>().getAi(widget.token, time!);
+    context.read<DataUserCubit>().getData(widget.token);
+    context.read<HistoryCubit>().getHistory(widget.token);
+  }
+
+  //logout
   void logout(String id) async {
     Uri url_ = Uri.parse('https://dashboard.parentoday.com/api/logout');
     var res = await http.post(
@@ -31,34 +61,6 @@ class _HomePageState extends State<HomePage> {
     } else {
       throw "Error ${res.statusCode} => ${body["meta"]["message"]}";
     }
-  }
-
-  final tanya1 = TextEditingController(text: 'Menangani tantrum pada anak');
-  final tanya2 = TextEditingController(text: 'Resep mpasi untuk bayi');
-  final tanya3 = TextEditingController(text: 'Cara mengatasi anak susah makan');
-
-  final pertanyaan = TextEditingController();
-  final pertanyaanBaru = TextEditingController();
-  bool isLoading = false;
-  bool showOverlay = false;
-  bool show = false;
-
-  String? time;
-
-  FocusNode focusNode = FocusNode();
-
-  ScrollController? controller;
-
-  @override
-  void initState() {
-    super.initState();
-
-    controller = ScrollController();
-
-    time = DateTime.now().millisecondsSinceEpoch.toString();
-    context.read<AiCubit>().getAi(widget.token, time!);
-    context.read<DataUserCubit>().getData(widget.token);
-    context.read<HistoryCubit>().getHistory(widget.token);
   }
 
   Future<List<Ai>> cari() async {
@@ -186,7 +188,7 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           automaticallyImplyLeading: false,
-          elevation: 5,
+          elevation: 1.5,
           iconTheme: IconThemeData(color: '737373'.toColor()),
           title: Container(
             width: MediaQuery.of(context).size.width,
@@ -620,7 +622,7 @@ class _HomePageState extends State<HomePage> {
                                   const SizedBox(width: 10),
                                   Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         snapshot.dataUser!.nama ?? '',
@@ -700,7 +702,7 @@ class _HomePageState extends State<HomePage> {
                           spreadRadius: 1,
                           blurRadius: 1,
                           offset:
-                          const Offset(0, 0), // changes position of shadow
+                              const Offset(0, 0), // changes position of shadow
                         ),
                       ],
                     ),
@@ -738,7 +740,17 @@ class _HomePageState extends State<HomePage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: headshot.history!
-                                  .map((e) => list_history(e, widget.token))
+                                  .map(
+                                    (e) => list_history(
+                                      e,
+                                      widget.token,
+                                      isShowContoh: (value) {
+                                        setState(() {
+                                          showContoh = value;
+                                        });
+                                      },
+                                    ),
+                                  )
                                   .toList(),
                             );
                           } else {
@@ -781,28 +793,28 @@ class _HomePageState extends State<HomePage> {
                         color: Colors.white,
                         child: (isLoading == true)
                             ? Center(
-                          child: Container(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(
-                              color: 'FF6969'.toColor(),
-                            ),
-                          ),
-                        )
+                                child: Container(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(
+                                    color: 'FF6969'.toColor(),
+                                  ),
+                                ),
+                              )
                             : Row(
-                          children: [
-                            const Icon(Icons.logout, size: 18),
-                            const SizedBox(width: 10),
-                            Text(
-                              'Sign Out',
-                              style: GoogleFonts.poppins().copyWith(
-                                fontWeight: FontWeight.w300,
-                                color: '555555'.toColor(),
-                                fontSize: 12,
+                                children: [
+                                  const Icon(Icons.logout, size: 18),
+                                  const SizedBox(width: 10),
+                                  Text(
+                                    'Sign Out',
+                                    style: GoogleFonts.poppins().copyWith(
+                                      fontWeight: FontWeight.w300,
+                                      color: '555555'.toColor(),
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ],
-                        ),
                       ),
                     ),
                   ],
