@@ -192,7 +192,7 @@ class _HomePageState extends State<HomePage> {
           iconTheme: IconThemeData(color: '737373'.toColor()),
           title: Container(
             width: MediaQuery.of(context).size.width,
-            constraints: const BoxConstraints(maxWidth: 800),
+            constraints: const BoxConstraints(maxWidth: 830),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -396,7 +396,7 @@ class _HomePageState extends State<HomePage> {
                     Positioned(
                       top: 0,
                       child: Container(
-                        height: MediaQuery.of(context).size.height - 60 - 80,
+                        height: MediaQuery.of(context).size.height - 130,
                         padding: const EdgeInsets.only(bottom: 10),
                         child: SingleChildScrollView(
                           scrollDirection: Axis.vertical,

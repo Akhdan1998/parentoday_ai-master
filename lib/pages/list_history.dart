@@ -27,8 +27,6 @@ class _list_historyState extends State<list_history> {
     );
     Map<String, dynamic> body = jsonDecode(res.body);
 
-    print('WKWKWK ${res.body}');
-
     if (res.statusCode == 200) {
       bool data = body["data"];
 
@@ -85,7 +83,7 @@ class _list_historyState extends State<list_history> {
                         widget.history!.title ?? '',
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.poppins().copyWith(
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w300,
                           color: '555555'.toColor(),
                           fontSize: 10,
                         ),
