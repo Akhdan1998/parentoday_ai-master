@@ -34,7 +34,7 @@ class _editState extends State<edit> {
       context.read<DataUserCubit>().getData(widget.token);
       Get.off(HomePage(widget.token));
       Flushbar(
-        backgroundColor: 'FF6969'.toColor(),
+        backgroundColor: dasarDark,
         borderRadius: BorderRadius.circular(10),
         duration: Duration(seconds: 3),
         margin: EdgeInsets.all(15),
@@ -100,9 +100,9 @@ class _editState extends State<edit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: dasarDark,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: navigasiDark,
         automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () {
@@ -110,7 +110,7 @@ class _editState extends State<edit> {
           },
           icon: Icon(
             Icons.arrow_back,
-            color: '888888'.toColor(),
+            color: textDark,
           ),
         ),
         title: Text(
@@ -118,7 +118,7 @@ class _editState extends State<edit> {
           style: GoogleFonts.poppins().copyWith(
             fontSize: 13,
             fontWeight: FontWeight.bold,
-            color: '747474'.toColor(),
+            color: textDark,
           ),
         ),
       ),
@@ -186,10 +186,9 @@ class _editState extends State<edit> {
                     height: 30,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
-                      color: 'FF6969'.toColor(),
+                      color: navigasiDark,
                     ),
-                    child:
-                        const Icon(Icons.edit, color: Colors.white, size: 18),
+                    child: Icon(Icons.edit, color: textDark, size: 18),
                   ),
                 ),
               ],
@@ -211,30 +210,37 @@ class _editState extends State<edit> {
                           style: GoogleFonts.poppins().copyWith(
                             fontWeight: FontWeight.bold,
                             fontSize: 12,
-                            color: '5A5A5A'.toColor(),
+                            color: textDark,
                           ),
                         ),
                         const SizedBox(height: 5),
-                        TextField(
-                          cursorColor: 'FF6969'.toColor(),
-                          controller: namaAndaEditingController,
-                          decoration: InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(5)),
-                              borderSide: BorderSide(
-                                  width: 1, color: 'FF6969'.toColor()),
-                            ),
-                            contentPadding: const EdgeInsets.only(
-                                left: 10, top: 5, bottom: 5),
-                            hintStyle: GoogleFonts.poppins().copyWith(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w300,
-                              color: '989797'.toColor(),
-                            ),
-                            hintText: 'Nama panggilan',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: textFieldDark,
+                          ),
+                          child: TextField(
+                            style: TextStyle(color: textDark),
+                            cursorColor: textDark,
+                            controller: namaAndaEditingController,
+                            decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(5)),
+                                borderSide: BorderSide(
+                                    width: 1, color: textDark),
+                              ),
+                              contentPadding: const EdgeInsets.only(
+                                  left: 10, top: 5, bottom: 5),
+                              hintStyle: GoogleFonts.poppins().copyWith(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w300,
+                                color: textDark,
+                              ),
+                              hintText: 'Nama panggilan',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5),
+                              ),
                             ),
                           ),
                         ),
@@ -255,7 +261,7 @@ class _editState extends State<edit> {
                       width: MediaQuery.of(context).size.width - 78,
                       constraints: const BoxConstraints(maxWidth: 500),
                       decoration: BoxDecoration(
-                        color: 'FF6969'.toColor(),
+                        color: navigasiDark,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: (isLoading = true)
@@ -264,7 +270,7 @@ class _editState extends State<edit> {
                               style: GoogleFonts.poppins().copyWith(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
-                                color: 'FFFFFF'.toColor(),
+                                color: textDark,
                               ),
                             )
                           : Center(
@@ -273,7 +279,7 @@ class _editState extends State<edit> {
                                 height: 20,
                                 child: CircularProgressIndicator(
                                   strokeWidth: 2.5,
-                                  color: 'FF6969'.toColor(),
+                                  color: textDark,
                                 ),
                               ),
                             ),

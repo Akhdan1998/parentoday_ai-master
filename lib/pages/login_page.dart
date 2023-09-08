@@ -13,6 +13,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: dasarDark,
       body: Container(
         alignment: Alignment.center,
         child: Column(
@@ -25,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
               'Halo Bunda,',
               style: GoogleFonts.poppins().copyWith(
                 fontWeight: FontWeight.bold,
-                color: '323232'.toColor(),
+                color: textDark,
                 fontSize: 24,
               ),
             ),
@@ -34,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
               'Silahkan Login atau Mendaftar untuk melanjutkan fitur parentoday.ai',
               style: GoogleFonts.poppins().copyWith(
                 fontWeight: FontWeight.w300,
-                color: '989797'.toColor(),
+                color: textDark,
                 fontSize: 12,
               ),
             ),
@@ -56,11 +57,11 @@ class _LoginPageState extends State<LoginPage> {
               child: Container(
                 height: 35,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: dasarDark,
                   borderRadius: BorderRadius.circular(8),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
+                      color: textDark,
                       spreadRadius: 1,
                       blurRadius: 1,
                       offset: const Offset(0, 0), // changes position of shadow
@@ -77,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                             height: 20,
                             child: CircularProgressIndicator(
                               strokeWidth: 2.5,
-                              color: 'FF6969'.toColor(),
+                              color: textDark,
                             ),
                           ),
                         )
@@ -91,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                               style: GoogleFonts.poppins().copyWith(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 10,
-                                color: '6D6D6D'.toColor(),
+                                color: textDark,
                               ),
                             ),
                           ],

@@ -179,17 +179,18 @@ class _HomePageState extends State<HomePage> {
       useDefaultLoading: false,
       overlayWidget: Center(
         child: CircularProgressIndicator(
-          color: 'FF6969'.toColor(),
+          color: textDark,
         ),
       ),
       child: Scaffold(
+        backgroundColor: dasarDark,
         key: _scaffoldKey,
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: navigasiDark,
           automaticallyImplyLeading: false,
           elevation: 1.5,
-          iconTheme: IconThemeData(color: '737373'.toColor()),
+          iconTheme: IconThemeData(color: textDark),
           title: Container(
             width: MediaQuery.of(context).size.width,
             constraints: const BoxConstraints(maxWidth: 830),
@@ -200,7 +201,7 @@ class _HomePageState extends State<HomePage> {
                   'A.I Parentoday',
                   style: GoogleFonts.poppins().copyWith(
                     fontWeight: FontWeight.bold,
-                    color: '5E5E5E'.toColor(),
+                    color: textDark,
                     fontSize: 12,
                   ),
                 ),
@@ -208,7 +209,7 @@ class _HomePageState extends State<HomePage> {
                   'Menjawab semua masalah parentingmu dengan cepat dan efisien',
                   style: GoogleFonts.poppins().copyWith(
                     fontWeight: FontWeight.w300,
-                    color: '959595'.toColor(),
+                    color: textDark,
                     fontSize: 11,
                   ),
                 ),
@@ -229,7 +230,7 @@ class _HomePageState extends State<HomePage> {
                             child: Container(
                               width: MediaQuery.of(context).size.width,
                               padding: const EdgeInsets.all(15),
-                              color: 'FFF4F4'.toColor(),
+                              color: chatRobotDark,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -250,7 +251,7 @@ class _HomePageState extends State<HomePage> {
                                           'Selamat datang di AI Parenting! Saya siap membantu Anda sebagai orang tua dengan saran dan dukungan dalam mengasuh anak-anak Anda dari bayi hingga remaja. Tanya saja tentang nutrisi, jadwal tidur, pengembangan emosional, dan aktivitas bermain yang menyenangkan.',
                                           style: GoogleFonts.poppins().copyWith(
                                             fontSize: 12,
-                                            color: '484848'.toColor(),
+                                            color: textDark,
                                           ),
                                         ),
                                         SizedBox(height: 9),
@@ -259,7 +260,7 @@ class _HomePageState extends State<HomePage> {
                                           style: GoogleFonts.poppins().copyWith(
                                             fontSize: 11,
                                             fontWeight: FontWeight.bold,
-                                            color: '484848'.toColor(),
+                                            color: textDark,
                                           ),
                                         ),
                                         SizedBox(height: 9),
@@ -295,13 +296,13 @@ class _HomePageState extends State<HomePage> {
                                               },
                                               child: Chip(
                                                 backgroundColor:
-                                                    'FFE0E0'.toColor(),
+                                                    navigasiDark,
                                                 label: Text(
                                                   'Menangani tantrum pada anak',
                                                   style: GoogleFonts.poppins()
                                                       .copyWith(
                                                     fontSize: 11,
-                                                    color: '484848'.toColor(),
+                                                    color: textDark,
                                                   ),
                                                 ),
                                               ),
@@ -333,13 +334,13 @@ class _HomePageState extends State<HomePage> {
                                               },
                                               child: Chip(
                                                 backgroundColor:
-                                                    'FFE0E0'.toColor(),
+                                                navigasiDark,
                                                 label: Text(
                                                   'Resep mpasi untuk bayi',
                                                   style: GoogleFonts.poppins()
                                                       .copyWith(
                                                     fontSize: 11,
-                                                    color: '484848'.toColor(),
+                                                    color: textDark,
                                                   ),
                                                 ),
                                               ),
@@ -372,13 +373,13 @@ class _HomePageState extends State<HomePage> {
                                               },
                                               child: Chip(
                                                 backgroundColor:
-                                                    'FFE0E0'.toColor(),
+                                                navigasiDark,
                                                 label: Text(
                                                   'Cara mengatasi anak susah makan',
                                                   style: GoogleFonts.poppins()
                                                       .copyWith(
                                                     fontSize: 11,
-                                                    color: '484848'.toColor(),
+                                                    color: textDark,
                                                   ),
                                                 ),
                                               ),
@@ -436,7 +437,7 @@ class _HomePageState extends State<HomePage> {
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: navigasiDark,
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.5),
@@ -457,7 +458,7 @@ class _HomePageState extends State<HomePage> {
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.poppins().copyWith(
                                       fontWeight: FontWeight.w300,
-                                      color: '959595'.toColor(),
+                                      color: textDark,
                                       fontSize: 11,
                                     ),
                                   )
@@ -469,8 +470,12 @@ class _HomePageState extends State<HomePage> {
                                 Container(
                                   constraints:
                                       const BoxConstraints(maxWidth: 800),
-                                  height: 35,
+                                  height: 45,
                                   width: MediaQuery.of(context).size.width - 78,
+                                  decoration: BoxDecoration(
+                                    color: textFieldDark,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
                                   child: TextField(
                                     onSubmitted: (value) async {
                                       focusNode.unfocus();
@@ -495,10 +500,11 @@ class _HomePageState extends State<HomePage> {
                                           .read<HistoryCubit>()
                                           .getHistory(widget.token);
                                     },
+                                    style: TextStyle(color: textDark),
                                     focusNode: focusNode,
                                     textCapitalization:
                                         TextCapitalization.sentences,
-                                    cursorColor: 'FF6969'.toColor(),
+                                    cursorColor: textDark,
                                     controller: pertanyaan,
                                     decoration: InputDecoration(
                                       focusedBorder: OutlineInputBorder(
@@ -506,14 +512,15 @@ class _HomePageState extends State<HomePage> {
                                             Radius.circular(5)),
                                         borderSide: BorderSide(
                                             width: 1,
-                                            color: 'FF6969'.toColor()),
+                                            color: navigasiDark,
+                                        ),
                                       ),
                                       contentPadding: const EdgeInsets.only(
                                           left: 10, top: 5, bottom: 5),
                                       hintStyle: GoogleFonts.poppins().copyWith(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w300,
-                                        color: '989797'.toColor(),
+                                        color: textDark,
                                       ),
                                       hintText: 'Tanya seputar parenting...',
                                       border: OutlineInputBorder(
@@ -549,21 +556,21 @@ class _HomePageState extends State<HomePage> {
                                   child: Container(
                                     padding: const EdgeInsets.all(8),
                                     decoration: BoxDecoration(
-                                      color: 'FF6969'.toColor(),
+                                      color: textFieldDark,
                                       borderRadius: BorderRadius.circular(50),
                                     ),
                                     child: isLoading
-                                        ? const SizedBox(
+                                        ? SizedBox(
                                             width: 20,
                                             height: 20,
                                             child: Center(
                                               child: CircularProgressIndicator(
-                                                  color: Colors.white,
+                                                  color: textDark,
                                                   strokeWidth: 2),
                                             ),
                                           )
-                                        : const Icon(Icons.send,
-                                            color: Colors.white, size: 20),
+                                        : Icon(Icons.send,
+                                            color: textDark, size: 20),
                                   ),
                                 ),
                               ],
@@ -574,7 +581,7 @@ class _HomePageState extends State<HomePage> {
                               textAlign: TextAlign.center,
                               style: GoogleFonts.poppins().copyWith(
                                 fontWeight: FontWeight.w300,
-                                color: '959595'.toColor(),
+                                color: textDark,
                                 fontSize: 11,
                               ),
                             ),
@@ -593,7 +600,7 @@ class _HomePageState extends State<HomePage> {
           },
         ),
         endDrawer: Drawer(
-          backgroundColor: Colors.white,
+          backgroundColor: navigasiDark,
           child: Stack(
             children: [
               Positioned(
@@ -617,7 +624,7 @@ class _HomePageState extends State<HomePage> {
                                     backgroundImage: NetworkImage(
                                         snapshot.dataUser!.profile_photo_url ??
                                             ''),
-                                    backgroundColor: Colors.white,
+                                    backgroundColor: navigasiDark,
                                   ),
                                   const SizedBox(width: 10),
                                   Column(
@@ -628,7 +635,7 @@ class _HomePageState extends State<HomePage> {
                                         snapshot.dataUser!.nama ?? '',
                                         style: GoogleFonts.poppins().copyWith(
                                           fontWeight: FontWeight.bold,
-                                          color: '424242'.toColor(),
+                                          color: textDark,
                                           fontSize: 11,
                                         ),
                                       ),
@@ -636,7 +643,7 @@ class _HomePageState extends State<HomePage> {
                                         snapshot.dataUser!.email ?? '',
                                         style: GoogleFonts.poppins().copyWith(
                                           fontWeight: FontWeight.w300,
-                                          color: '555555'.toColor(),
+                                          color: textDark,
                                           fontSize: 10,
                                         ),
                                       ),
@@ -654,10 +661,10 @@ class _HomePageState extends State<HomePage> {
                                   );
                                 },
                                 child: Container(
-                                  color: Colors.white,
+                                  color: navigasiDark,
                                   child: Image.asset(
                                     'assets/edit.png',
-                                    scale: 2.5,
+                                    scale: 2.5, color: textDark,
                                   ),
                                 ),
                               ),
@@ -676,7 +683,7 @@ class _HomePageState extends State<HomePage> {
               Positioned(
                 right: 15,
                 left: 15,
-                top: 60,
+                top: 63,
                 child: GestureDetector(
                   onTap: () {
                     context.read<AiCubit>().getAi(widget.token, '');
@@ -694,11 +701,12 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.only(
                         left: 10, right: 5, top: 5, bottom: 5),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: navigasiDark,
                       borderRadius: BorderRadius.circular(8),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
+                          // color: Colors.grey.withOpacity(0.5),
+                          color: textDark,
                           spreadRadius: 1,
                           blurRadius: 1,
                           offset:
@@ -714,11 +722,11 @@ class _HomePageState extends State<HomePage> {
                           style: GoogleFonts.poppins().copyWith(
                             fontWeight: FontWeight.bold,
                             fontSize: 10,
-                            color: '6D6D6D'.toColor(),
+                            color: textDark,
                           ),
                         ),
                         const SizedBox(width: 5),
-                        Icon(Icons.add, color: '616161'.toColor()),
+                        Icon(Icons.add, color: textDark),
                       ],
                     ),
                   ),
@@ -772,44 +780,80 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Divider(
                       thickness: 1.5,
-                      color: 'C3C3C3'.toColor(),
+                      color: textDark,
                       height: 1,
                     ),
                     GestureDetector(
                       onTap: () async {
-                        setState(() {
-                          isLoading = true;
-                        });
-                        await signOut().then((result) {
-                          print(result);
-                          logout(widget.token);
-                        }).catchError((error) {
-                          print('SignOut Error: $error');
-                        });
+                        // setState(() {
+                        //   isLoading = true;
+                        // });
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                                backgroundColor: dasarDark,
+                                content: Text(
+                                  'Yakin akan keluar?',
+                                  style: GoogleFonts.poppins().copyWith(fontSize: 12, color: textDark),
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: Text(
+                                      'Tidak',
+                                      style: GoogleFonts.poppins().copyWith(
+                                        fontSize: 12,
+                                        color: textDark,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  TextButton(
+                                    child: Text(
+                                      'Ya',
+                                      style: GoogleFonts.poppins().copyWith(
+                                        fontSize: 12,
+                                        color: textDark,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      signOut().then((result) {
+                                        print(result);
+                                        logout(widget.token);
+                                      }).catchError((error) {
+                                        print('SignOut Error: $error');
+                                      });
+                                    },
+                                  ),
+                                ]);
+                          },
+                        );
                       },
                       child: Container(
                         padding: const EdgeInsets.only(
                             left: 15, top: 10, bottom: 10),
-                        color: Colors.white,
+                        color: navigasiDark,
                         child: (isLoading == true)
                             ? Center(
                                 child: Container(
                                   width: 20,
                                   height: 20,
                                   child: CircularProgressIndicator(
-                                    color: 'FF6969'.toColor(),
+                                    color: textDark,
                                   ),
                                 ),
                               )
                             : Row(
                                 children: [
-                                  const Icon(Icons.logout, size: 18),
+                                  Icon(Icons.logout, size: 18, color: textDark,),
                                   const SizedBox(width: 10),
                                   Text(
                                     'Sign Out',
                                     style: GoogleFonts.poppins().copyWith(
                                       fontWeight: FontWeight.w300,
-                                      color: '555555'.toColor(),
+                                      color: textDark,
                                       fontSize: 12,
                                     ),
                                   ),

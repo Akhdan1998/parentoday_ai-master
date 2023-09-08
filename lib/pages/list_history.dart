@@ -35,9 +35,9 @@ class _list_historyState extends State<list_history> {
       Navigator.of(context).pop();
 
       Flushbar(
-        backgroundColor: 'FF6969'.toColor(),
+        backgroundColor: dasarDark,
         borderRadius: BorderRadius.circular(10),
-        duration: Duration(seconds: 3),
+        duration: Duration(seconds: 8),
         margin: EdgeInsets.all(15),
         forwardAnimationCurve: Curves.decelerate,
         reverseAnimationCurve: Curves.easeOut,
@@ -67,24 +67,24 @@ class _list_historyState extends State<list_history> {
               },
               child: Container(
                 constraints: const BoxConstraints(minWidth: 232),
-                color: Colors.white,
+                color: navigasiDark,
                 width: MediaQuery.of(context).size.width - 1208,
                 padding: const EdgeInsets.all(5),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Icon(Icons.chat_outlined, size: 20),
+                    Icon(Icons.chat, size: 20, color: textDark,),
                     const SizedBox(width: 7),
                     Container(
                       constraints: const BoxConstraints(minWidth: 195),
-                      color: Colors.white,
+                      color: navigasiDark,
                       width: MediaQuery.of(context).size.width - 1245,
                       child: Text(
                         widget.history!.title ?? '',
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.poppins().copyWith(
                           fontWeight: FontWeight.w300,
-                          color: '555555'.toColor(),
+                          color: textDark,
                           fontSize: 10,
                         ),
                       ),
@@ -99,9 +99,10 @@ class _list_historyState extends State<list_history> {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
+                      backgroundColor: dasarDark,
                         content: Text(
                           'Yakin mau menghapus history?',
-                          style: GoogleFonts.poppins().copyWith(fontSize: 12),
+                          style: GoogleFonts.poppins().copyWith(fontSize: 12, color: textDark),
                         ),
                         actions: <Widget>[
                           TextButton(
@@ -109,7 +110,7 @@ class _list_historyState extends State<list_history> {
                               'Tidak',
                               style: GoogleFonts.poppins().copyWith(
                                 fontSize: 12,
-                                color: 'FF8182'.toColor(),
+                                color: textDark,
                               ),
                             ),
                             onPressed: () {
@@ -121,7 +122,7 @@ class _list_historyState extends State<list_history> {
                               'Ya',
                               style: GoogleFonts.poppins().copyWith(
                                 fontSize: 12,
-                                color: 'FF8182'.toColor(),
+                                color: textDark,
                               ),
                             ),
                             onPressed: () {
@@ -133,23 +134,23 @@ class _list_historyState extends State<list_history> {
                 );
               },
               child: Container(
-                color: Colors.white,
+                color: navigasiDark,
                 child: Icon(
-                  Icons.delete,
-                  color: '555555'.toColor(),
+                  Icons.delete_outline_sharp,
+                  color: textDark,
                   size: 18,
                 ),
               ),
             ),
             Icon(
               Icons.chevron_right,
-              color: '555555'.toColor(),
+              color: textDark,
             ),
           ],
         ),
         Divider(
           thickness: 1.5,
-          color: 'ECECEC'.toColor(),
+          color: textDark,
           height: 5,
         ),
       ],

@@ -33,6 +33,7 @@ import '../models/data_user.dart';
 import '../models/history.dart';
 import '../models/models.dart';
 import '../services/LogReg_services.dart';
+import '../theme/color.dart';
 import '../widgets/widgets.dart';
 import 'dart:typed_data';
 import 'package:http_parser/http_parser.dart';

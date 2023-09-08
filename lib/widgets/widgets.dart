@@ -10,5 +10,6 @@ import '../cubits/datauser_dart_cubit.dart';
 import '../cubits/datauser_dart_state.dart';
 import '../models/data_user.dart';
 import '../models/models.dart';
+import '../theme/color.dart';
 
 part 'chat_card.dart';
