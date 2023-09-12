@@ -51,3 +51,4 @@ part 'login_page.dart';
 
 String? selectedRandomId;
 bool showChat = true;
+bool darkLight = false;

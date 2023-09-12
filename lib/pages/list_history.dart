@@ -35,7 +35,7 @@ class _list_historyState extends State<list_history> {
       Navigator.of(context).pop();
 
       Flushbar(
-        backgroundColor: dasarDark,
+        backgroundColor: (darkLight != true) ? dasarDark : warnaUtama,
         borderRadius: BorderRadius.circular(10),
         duration: Duration(seconds: 8),
         margin: EdgeInsets.all(15),
@@ -67,24 +67,24 @@ class _list_historyState extends State<list_history> {
               },
               child: Container(
                 constraints: const BoxConstraints(minWidth: 232),
-                color: navigasiDark,
+                color: (darkLight != true) ? navigasiDark : textDark,
                 width: MediaQuery.of(context).size.width - 1208,
                 padding: const EdgeInsets.all(5),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(Icons.chat, size: 20, color: textDark,),
+                    Icon(Icons.chat, size: 20, color: (darkLight != true) ? textDark : textLight3,),
                     const SizedBox(width: 7),
                     Container(
                       constraints: const BoxConstraints(minWidth: 195),
-                      color: navigasiDark,
+                      color: (darkLight != true) ? navigasiDark : textDark,
                       width: MediaQuery.of(context).size.width - 1245,
                       child: Text(
                         widget.history!.title ?? '',
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.poppins().copyWith(
                           fontWeight: FontWeight.w300,
-                          color: textDark,
+                          color: (darkLight != true) ? textDark : textLight3,
                           fontSize: 10,
                         ),
                       ),
@@ -99,10 +99,13 @@ class _list_historyState extends State<list_history> {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      backgroundColor: dasarDark,
+                      backgroundColor: (darkLight != true) ? dasarDark : textDark,
                         content: Text(
                           'Yakin mau menghapus history?',
-                          style: GoogleFonts.poppins().copyWith(fontSize: 12, color: textDark),
+                          style: GoogleFonts.poppins().copyWith(
+                            fontSize: 12,
+                            color: (darkLight != true) ? textDark : textLight5,
+                          ),
                         ),
                         actions: <Widget>[
                           TextButton(
@@ -110,7 +113,7 @@ class _list_historyState extends State<list_history> {
                               'Tidak',
                               style: GoogleFonts.poppins().copyWith(
                                 fontSize: 12,
-                                color: textDark,
+                                color: (darkLight != true) ? textDark : warnaUtama,
                               ),
                             ),
                             onPressed: () {
@@ -122,7 +125,7 @@ class _list_historyState extends State<list_history> {
                               'Ya',
                               style: GoogleFonts.poppins().copyWith(
                                 fontSize: 12,
-                                color: textDark,
+                                color: (darkLight != true) ? textDark : warnaUtama,
                               ),
                             ),
                             onPressed: () {
@@ -134,23 +137,23 @@ class _list_historyState extends State<list_history> {
                 );
               },
               child: Container(
-                color: navigasiDark,
+                color: (darkLight != true) ? navigasiDark : textDark,
                 child: Icon(
-                  Icons.delete_outline_sharp,
-                  color: textDark,
+                  (darkLight != true) ? Icons.delete_outline_sharp : Icons.delete,
+                  color: (darkLight != true) ? textDark : textLight3,
                   size: 18,
                 ),
               ),
             ),
             Icon(
               Icons.chevron_right,
-              color: textDark,
+              color: (darkLight != true) ? textDark : textLight3,
             ),
           ],
         ),
         Divider(
           thickness: 1.5,
-          color: textDark,
+          color: (darkLight != true) ? textDark : divider,
           height: 5,
         ),
       ],

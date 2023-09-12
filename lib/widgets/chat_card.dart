@@ -6,7 +6,7 @@ class ChatUserCard extends StatefulWidget {
   final DataUser userData;
   final String token;
 
-  ChatUserCard(this.aiModel, this.userData, this.token);
+  const ChatUserCard(this.aiModel, this.userData, this.token, {super.key});
 
   @override
   State<ChatUserCard> createState() => _ChatUserCardState();
@@ -18,7 +18,7 @@ class _ChatUserCardState extends State<ChatUserCard> {
     return Container(
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.all(15),
-      color: chatUserDark,
+      color: (darkLight != true) ? chatUserDark : textDark,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,7 +44,7 @@ class _ChatUserCardState extends State<ChatUserCard> {
               widget.aiModel.content ?? '',
               style: GoogleFonts.poppins().copyWith(
                 fontWeight: FontWeight.w300,
-                color: textDark,
+                color: (darkLight != true) ? textDark : textLight3,
                 fontSize: 12,
               ),
             ),
@@ -66,7 +66,7 @@ class ChatRobotCard extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.all(15),
-      color: chatRobotDark,
+      color: (darkLight != true) ? dasarDark : chatUserLight,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,7 +80,7 @@ class ChatRobotCard extends StatelessWidget {
               aiModel.content ?? '',
               style: GoogleFonts.poppins().copyWith(
                 fontWeight: FontWeight.w300,
-                color: textDark,
+                color: (darkLight != true) ? textDark : textLight3,
                 height: 1.7,
                 fontSize: 12,
               ),

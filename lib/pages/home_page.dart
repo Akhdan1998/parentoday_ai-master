@@ -179,38 +179,63 @@ class _HomePageState extends State<HomePage> {
       useDefaultLoading: false,
       overlayWidget: Center(
         child: CircularProgressIndicator(
-          color: textDark,
+          color: (darkLight != true) ? textDark : warnaUtama,
         ),
       ),
       child: Scaffold(
-        backgroundColor: dasarDark,
+        backgroundColor: (darkLight != true) ? dasarDark : dasarLight,
         key: _scaffoldKey,
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          backgroundColor: navigasiDark,
+          backgroundColor: (darkLight != true) ? navigasiDark : textDark,
           automaticallyImplyLeading: false,
           elevation: 1.5,
-          iconTheme: IconThemeData(color: textDark),
+          iconTheme: IconThemeData(
+              color: (darkLight != true) ? textDark : buttonLight1),
           title: Container(
             width: MediaQuery.of(context).size.width,
             constraints: const BoxConstraints(maxWidth: 830),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'A.I Parentoday',
-                  style: GoogleFonts.poppins().copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: textDark,
-                    fontSize: 12,
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'A.I Parentoday',
+                      style: GoogleFonts.poppins().copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: (darkLight != true) ? textDark : textLight1,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Text(
+                      'Menjawab semua masalah parentingmu dengan cepat dan efisien',
+                      style: GoogleFonts.poppins().copyWith(
+                        fontWeight: FontWeight.w300,
+                        color: (darkLight != true) ? textDark : textLight2,
+                        fontSize: 11,
+                      ),
+                    ),
+                  ],
                 ),
-                Text(
-                  'Menjawab semua masalah parentingmu dengan cepat dan efisien',
-                  style: GoogleFonts.poppins().copyWith(
-                    fontWeight: FontWeight.w300,
-                    color: textDark,
-                    fontSize: 11,
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      (darkLight = !darkLight);
+                    });
+                  },
+                  child: Container(
+                    color: (darkLight != true) ? navigasiDark : textDark,
+                    child: (darkLight != true) ? Icon(
+                      Icons.wb_sunny,
+                      color: (darkLight != true) ? textDark : buttonLight1,
+                      size: 20,
+                    ) : Icon(
+                      Icons.dark_mode,
+                      color: (darkLight != true) ? textDark : buttonLight1,
+                      size: 20,
+                    ),
                   ),
                 ),
               ],
@@ -230,7 +255,9 @@ class _HomePageState extends State<HomePage> {
                             child: Container(
                               width: MediaQuery.of(context).size.width,
                               padding: const EdgeInsets.all(15),
-                              color: chatRobotDark,
+                              color: (darkLight != true)
+                                  ? dasarDark
+                                  : contohLight,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -251,7 +278,9 @@ class _HomePageState extends State<HomePage> {
                                           'Selamat datang di AI Parenting! Saya siap membantu Anda sebagai orang tua dengan saran dan dukungan dalam mengasuh anak-anak Anda dari bayi hingga remaja. Tanya saja tentang nutrisi, jadwal tidur, pengembangan emosional, dan aktivitas bermain yang menyenangkan.',
                                           style: GoogleFonts.poppins().copyWith(
                                             fontSize: 12,
-                                            color: textDark,
+                                            color: (darkLight != true)
+                                                ? textDark
+                                                : textLight3,
                                           ),
                                         ),
                                         SizedBox(height: 9),
@@ -260,7 +289,9 @@ class _HomePageState extends State<HomePage> {
                                           style: GoogleFonts.poppins().copyWith(
                                             fontSize: 11,
                                             fontWeight: FontWeight.bold,
-                                            color: textDark,
+                                            color: (darkLight != true)
+                                                ? textDark
+                                                : textLight3,
                                           ),
                                         ),
                                         SizedBox(height: 9),
@@ -296,13 +327,17 @@ class _HomePageState extends State<HomePage> {
                                               },
                                               child: Chip(
                                                 backgroundColor:
-                                                    navigasiDark,
+                                                (darkLight != true)
+                                                    ? navigasiDark
+                                                    : buttonLight2,
                                                 label: Text(
                                                   'Menangani tantrum pada anak',
                                                   style: GoogleFonts.poppins()
                                                       .copyWith(
                                                     fontSize: 11,
-                                                    color: textDark,
+                                                    color: (darkLight != true)
+                                                        ? textDark
+                                                        : textLight3,
                                                   ),
                                                 ),
                                               ),
@@ -333,14 +368,18 @@ class _HomePageState extends State<HomePage> {
                                                     .getHistory(widget.token);
                                               },
                                               child: Chip(
-                                                backgroundColor:
-                                                navigasiDark,
+                                                backgroundColor: (darkLight != true)
+                                                    ? navigasiDark
+                                                    : buttonLight2,
                                                 label: Text(
                                                   'Resep mpasi untuk bayi',
                                                   style: GoogleFonts.poppins()
                                                       .copyWith(
                                                     fontSize: 11,
-                                                    color: textDark,
+                                                    color:
+                                                    (darkLight != true)
+                                                        ? textDark
+                                                        : textLight3,
                                                   ),
                                                 ),
                                               ),
@@ -373,13 +412,17 @@ class _HomePageState extends State<HomePage> {
                                               },
                                               child: Chip(
                                                 backgroundColor:
-                                                navigasiDark,
+                                                (darkLight != true)
+                                                    ? navigasiDark
+                                                    : buttonLight2,
                                                 label: Text(
                                                   'Cara mengatasi anak susah makan',
                                                   style: GoogleFonts.poppins()
                                                       .copyWith(
                                                     fontSize: 11,
-                                                    color: textDark,
+                                                    color: (darkLight != true)
+                                                        ? textDark
+                                                        : textLight3,
                                                   ),
                                                 ),
                                               ),
@@ -437,14 +480,15 @@ class _HomePageState extends State<HomePage> {
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
-                          color: navigasiDark,
-                          boxShadow: [
+                          color: (darkLight != true)
+                              ? navigasiDark
+                              : textDark,
+                          boxShadow: const [
                             BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
+                              color: Colors.grey,
                               spreadRadius: 1,
                               blurRadius: 1,
-                              offset: const Offset(
-                                  0, 0), // changes position of shadow
+                              offset: Offset(0, 0), // changes position of shadow
                             ),
                           ],
                         ),
@@ -458,7 +502,9 @@ class _HomePageState extends State<HomePage> {
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.poppins().copyWith(
                                       fontWeight: FontWeight.w300,
-                                      color: textDark,
+                                      color: (darkLight != true)
+                                          ? textDark
+                                          : textLight4,
                                       fontSize: 11,
                                     ),
                                   )
@@ -472,10 +518,10 @@ class _HomePageState extends State<HomePage> {
                                       const BoxConstraints(maxWidth: 800),
                                   height: 45,
                                   width: MediaQuery.of(context).size.width - 78,
-                                  decoration: BoxDecoration(
-                                    color: textFieldDark,
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
+                                  // decoration: BoxDecoration(
+                                  //   color: textFieldDark,
+                                  //   borderRadius: BorderRadius.circular(5),
+                                  // ),
                                   child: TextField(
                                     onSubmitted: (value) async {
                                       focusNode.unfocus();
@@ -500,19 +546,36 @@ class _HomePageState extends State<HomePage> {
                                           .read<HistoryCubit>()
                                           .getHistory(widget.token);
                                     },
-                                    style: TextStyle(color: textDark),
+                                    style: TextStyle(
+                                        color: (darkLight != true)
+                                            ? textDark
+                                            : textLight5),
                                     focusNode: focusNode,
                                     textCapitalization:
                                         TextCapitalization.sentences,
-                                    cursorColor: textDark,
+                                    cursorColor: (darkLight != true)
+                                        ? textDark
+                                        : warnaUtama,
                                     controller: pertanyaan,
                                     decoration: InputDecoration(
+                                      fillColor: (darkLight != true)
+                                          ? textFieldDark
+                                          : textFieldLight,
+                                      filled: true,
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 1,
+                                          color: (darkLight != true) ? textFieldDark : textFieldLight,
+                                        ),
+                                      ),
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(5)),
                                         borderSide: BorderSide(
                                             width: 1,
-                                            color: navigasiDark,
+                                            color: (darkLight != true)
+                                                ? dasarDark
+                                                : warnaUtama,
                                         ),
                                       ),
                                       contentPadding: const EdgeInsets.only(
@@ -520,7 +583,9 @@ class _HomePageState extends State<HomePage> {
                                       hintStyle: GoogleFonts.poppins().copyWith(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w300,
-                                        color: textDark,
+                                        color: (darkLight != true)
+                                            ? textDark
+                                            : textLight6,
                                       ),
                                       hintText: 'Tanya seputar parenting...',
                                       border: OutlineInputBorder(
@@ -556,7 +621,9 @@ class _HomePageState extends State<HomePage> {
                                   child: Container(
                                     padding: const EdgeInsets.all(8),
                                     decoration: BoxDecoration(
-                                      color: textFieldDark,
+                                      color: (darkLight != true)
+                                          ? dasarDark
+                                          : warnaUtama,
                                       borderRadius: BorderRadius.circular(50),
                                     ),
                                     child: isLoading
@@ -581,7 +648,9 @@ class _HomePageState extends State<HomePage> {
                               textAlign: TextAlign.center,
                               style: GoogleFonts.poppins().copyWith(
                                 fontWeight: FontWeight.w300,
-                                color: textDark,
+                                color: (darkLight != true)
+                                    ? textDark
+                                    : textLight4,
                                 fontSize: 11,
                               ),
                             ),
@@ -600,7 +669,7 @@ class _HomePageState extends State<HomePage> {
           },
         ),
         endDrawer: Drawer(
-          backgroundColor: navigasiDark,
+          backgroundColor: (darkLight != true) ? navigasiDark : textDark,
           child: Stack(
             children: [
               Positioned(
@@ -624,7 +693,7 @@ class _HomePageState extends State<HomePage> {
                                     backgroundImage: NetworkImage(
                                         snapshot.dataUser!.profile_photo_url ??
                                             ''),
-                                    backgroundColor: navigasiDark,
+                                    backgroundColor: (darkLight != true) ? navigasiDark : textDark,
                                   ),
                                   const SizedBox(width: 10),
                                   Column(
@@ -635,7 +704,9 @@ class _HomePageState extends State<HomePage> {
                                         snapshot.dataUser!.nama ?? '',
                                         style: GoogleFonts.poppins().copyWith(
                                           fontWeight: FontWeight.bold,
-                                          color: textDark,
+                                          color: (darkLight != true)
+                                              ? textDark
+                                              : textLight7,
                                           fontSize: 11,
                                         ),
                                       ),
@@ -643,7 +714,9 @@ class _HomePageState extends State<HomePage> {
                                         snapshot.dataUser!.email ?? '',
                                         style: GoogleFonts.poppins().copyWith(
                                           fontWeight: FontWeight.w300,
-                                          color: textDark,
+                                          color: (darkLight != true)
+                                              ? textDark
+                                              : textLight8,
                                           fontSize: 10,
                                         ),
                                       ),
@@ -661,10 +734,14 @@ class _HomePageState extends State<HomePage> {
                                   );
                                 },
                                 child: Container(
-                                  color: navigasiDark,
+                                  color: (darkLight != true)
+                                      ? navigasiDark
+                                      : textDark,
                                   child: Image.asset(
                                     'assets/edit.png',
-                                    scale: 2.5, color: textDark,
+                                    scale: 2.5, color: (darkLight != true)
+                                      ? textDark
+                                      : buttonLight1,
                                   ),
                                 ),
                               ),
@@ -701,12 +778,11 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.only(
                         left: 10, right: 5, top: 5, bottom: 5),
                     decoration: BoxDecoration(
-                      color: navigasiDark,
+                      color: (darkLight != true) ? navigasiDark : textDark,
                       borderRadius: BorderRadius.circular(8),
                       boxShadow: [
                         BoxShadow(
-                          // color: Colors.grey.withOpacity(0.5),
-                          color: textDark,
+                          color: (darkLight != true) ? textDark : shadow,
                           spreadRadius: 1,
                           blurRadius: 1,
                           offset:
@@ -722,11 +798,14 @@ class _HomePageState extends State<HomePage> {
                           style: GoogleFonts.poppins().copyWith(
                             fontWeight: FontWeight.bold,
                             fontSize: 10,
-                            color: textDark,
+                            color: (darkLight != true) ? textDark : textLight3,
                           ),
                         ),
                         const SizedBox(width: 5),
-                        Icon(Icons.add, color: textDark),
+                        Icon(
+                          Icons.add,
+                          color: (darkLight != true) ? textDark : textLight3,
+                        ),
                       ],
                     ),
                   ),
@@ -780,7 +859,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Divider(
                       thickness: 1.5,
-                      color: textDark,
+                      color: (darkLight != true) ? textDark : divider,
                       height: 1,
                     ),
                     GestureDetector(
@@ -792,10 +871,12 @@ class _HomePageState extends State<HomePage> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                                backgroundColor: dasarDark,
+                                backgroundColor: (darkLight != true) ? dasarDark : textDark,
                                 content: Text(
                                   'Yakin akan keluar?',
-                                  style: GoogleFonts.poppins().copyWith(fontSize: 12, color: textDark),
+                                  style: GoogleFonts.poppins().copyWith(fontSize: 12, color: (darkLight != true)
+                                      ? textDark
+                                      : textLight5,),
                                 ),
                                 actions: <Widget>[
                                   TextButton(
@@ -803,7 +884,9 @@ class _HomePageState extends State<HomePage> {
                                       'Tidak',
                                       style: GoogleFonts.poppins().copyWith(
                                         fontSize: 12,
-                                        color: textDark,
+                                        color: (darkLight != true)
+                                            ? textDark
+                                            : warnaUtama,
                                       ),
                                     ),
                                     onPressed: () {
@@ -815,7 +898,9 @@ class _HomePageState extends State<HomePage> {
                                       'Ya',
                                       style: GoogleFonts.poppins().copyWith(
                                         fontSize: 12,
-                                        color: textDark,
+                                        color: (darkLight != true)
+                                            ? textDark
+                                            : warnaUtama,
                                       ),
                                     ),
                                     onPressed: () {
@@ -834,26 +919,16 @@ class _HomePageState extends State<HomePage> {
                       child: Container(
                         padding: const EdgeInsets.only(
                             left: 15, top: 10, bottom: 10),
-                        color: navigasiDark,
-                        child: (isLoading == true)
-                            ? Center(
-                                child: Container(
-                                  width: 20,
-                                  height: 20,
-                                  child: CircularProgressIndicator(
-                                    color: textDark,
-                                  ),
-                                ),
-                              )
-                            : Row(
+                        color: (darkLight != true) ? navigasiDark : textDark,
+                        child: Row(
                                 children: [
-                                  Icon(Icons.logout, size: 18, color: textDark,),
+                                  Icon(Icons.logout, size: 18, color: (darkLight != true) ? textDark : textLight3,),
                                   const SizedBox(width: 10),
                                   Text(
                                     'Sign Out',
                                     style: GoogleFonts.poppins().copyWith(
                                       fontWeight: FontWeight.w300,
-                                      color: textDark,
+                                      color: (darkLight != true) ? textDark : textLight3,
                                       fontSize: 12,
                                     ),
                                   ),

@@ -22,10 +22,12 @@ void main() async {
         measurementId: "G-JSGV31T0LN"
     ),
   );
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -38,7 +40,6 @@ class MyApp extends StatelessWidget {
         color: 'FF6969'.toColor(),
         debugShowCheckedModeBanner: false,
         home: const LoginPage(),
-        // home: const HomePage(''),
       ),
     );
   }
