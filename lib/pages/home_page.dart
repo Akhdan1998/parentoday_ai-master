@@ -220,18 +220,6 @@ class _HomePageState extends State<HomePage> {
                         width: MediaQuery.of(context).size.width,
                         padding: const EdgeInsets.only(top: 10, left: 10),
                         color: (darkLight != true) ? navigasiDark : textDark,
-                        // color: Colors.blue,
-                        // decoration: BoxDecoration(
-                        //   color: (darkLight != true) ? navigasiDark : textDark,
-                        //   boxShadow: const [
-                        //     BoxShadow(
-                        //       color: Colors.grey,
-                        //       spreadRadius: 1,
-                        //       blurRadius: 1,
-                        //       offset: Offset(0, 10), // changes position of shadow
-                        //     ),
-                        //   ],
-                        // ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -284,31 +272,6 @@ class _HomePageState extends State<HomePage> {
                                           size: 20,
                                         ),
                                 ),
-                                // GestureDetector(
-                                //   onTap: () {
-                                //     setState(() {
-                                //       (darkLight = !darkLight);
-                                //     });
-                                //   },
-                                //   child: Container(
-                                //     color: (darkLight != true) ? navigasiDark : textDark,
-                                //     child: (darkLight != true)
-                                //         ? Icon(
-                                //       Icons.wb_sunny,
-                                //       color: (darkLight != true)
-                                //           ? textDark
-                                //           : buttonLight1,
-                                //       size: 20,
-                                //     )
-                                //         : Icon(
-                                //       Icons.dark_mode,
-                                //       color: (darkLight != true)
-                                //           ? textDark
-                                //           : buttonLight1,
-                                //       size: 20,
-                                //     ),
-                                //   ),
-                                // ),
                                 Builder(
                                   builder: (context) => IconButton(
                                     icon: Icon(
@@ -600,10 +563,6 @@ class _HomePageState extends State<HomePage> {
                                       const BoxConstraints(maxWidth: 800),
                                   height: 45,
                                   width: MediaQuery.of(context).size.width - 78,
-                                  // decoration: BoxDecoration(
-                                  //   color: textFieldDark,
-                                  //   borderRadius: BorderRadius.circular(5),
-                                  // ),
                                   child: TextField(
                                     onSubmitted: (value) async {
                                       focusNode.unfocus();

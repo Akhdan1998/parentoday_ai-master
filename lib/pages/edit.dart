@@ -12,10 +12,6 @@ class edit extends StatefulWidget {
 
 class _editState extends State<edit> {
   bool isLoading = false;
-  bool isButtonEnabled() {
-    return namaAndaEditingController.text.isNotEmpty;
-  }
-  String textFieldError = '';
   final namaAndaEditingController = TextEditingController();
   final _formState = GlobalKey<FormState>();
 
