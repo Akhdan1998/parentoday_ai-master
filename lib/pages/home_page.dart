@@ -186,62 +186,6 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: (darkLight != true) ? dasarDark : dasarLight,
         key: _scaffoldKey,
         resizeToAvoidBottomInset: true,
-        appBar: AppBar(
-          backgroundColor: (darkLight != true) ? navigasiDark : textDark,
-          automaticallyImplyLeading: false,
-          elevation: 1.5,
-          iconTheme: IconThemeData(
-              color: (darkLight != true) ? textDark : buttonLight1),
-          title: Container(
-            width: MediaQuery.of(context).size.width,
-            constraints: const BoxConstraints(maxWidth: 830),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'A.I Parentoday',
-                      style: GoogleFonts.poppins().copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: (darkLight != true) ? textDark : textLight1,
-                        fontSize: 12,
-                      ),
-                    ),
-                    Text(
-                      'Menjawab semua masalah parentingmu dengan cepat dan efisien',
-                      style: GoogleFonts.poppins().copyWith(
-                        fontWeight: FontWeight.w300,
-                        color: (darkLight != true) ? textDark : textLight2,
-                        fontSize: 11,
-                      ),
-                    ),
-                  ],
-                ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      (darkLight = !darkLight);
-                    });
-                  },
-                  child: Container(
-                    color: (darkLight != true) ? navigasiDark : textDark,
-                    child: (darkLight != true) ? Icon(
-                      Icons.wb_sunny,
-                      color: (darkLight != true) ? textDark : buttonLight1,
-                      size: 20,
-                    ) : Icon(
-                      Icons.dark_mode,
-                      color: (darkLight != true) ? textDark : buttonLight1,
-                      size: 20,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
         body: BlocBuilder<DataUserCubit, DataUserState>(
           builder: (context, state) {
             if (state is DataUserLoaded) {
@@ -249,22 +193,159 @@ class _HomePageState extends State<HomePage> {
                 return Stack(
                   alignment: Alignment.center,
                   children: [
+                    //appbar
+                    Positioned(
+                        top: 0,
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 57.6,
+                          decoration: BoxDecoration(
+                            color: (darkLight != true) ? navigasiDark : textDark,
+                          boxShadow: const [
+                              BoxShadow(
+                                color: Colors.grey,
+                                spreadRadius: 1,
+                                blurRadius: 1,
+                                offset:
+                                Offset(0, 0), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                        ),
+                    ),
+                    Positioned(
+                      top: 0,
+                      child: Container(
+                        constraints: const BoxConstraints(maxWidth: 855),
+                        width: MediaQuery.of(context).size.width,
+                        padding: const EdgeInsets.only(top: 10, left: 10),
+                        color: (darkLight != true) ? navigasiDark : textDark,
+                        // color: Colors.blue,
+                        // decoration: BoxDecoration(
+                        //   color: (darkLight != true) ? navigasiDark : textDark,
+                        //   boxShadow: const [
+                        //     BoxShadow(
+                        //       color: Colors.grey,
+                        //       spreadRadius: 1,
+                        //       blurRadius: 1,
+                        //       offset: Offset(0, 10), // changes position of shadow
+                        //     ),
+                        //   ],
+                        // ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'A.I Parentoday',
+                                  style: GoogleFonts.poppins().copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: (darkLight != true)
+                                        ? textDark
+                                        : textLight1,
+                                    fontSize: 13,
+                                  ),
+                                ),
+                                Text(
+                                  'Menjawab semua masalah parentingmu dengan cepat dan efisien',
+                                  style: GoogleFonts.poppins().copyWith(
+                                    fontWeight: FontWeight.w300,
+                                    color: (darkLight != true)
+                                        ? textDark
+                                        : textLight2,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      (darkLight = !darkLight);
+                                    });
+                                  },
+                                  icon: (darkLight != true)
+                                      ? Icon(
+                                          Icons.wb_sunny,
+                                          color: (darkLight != true)
+                                              ? textDark
+                                              : buttonLight1,
+                                          size: 20,
+                                        )
+                                      : Icon(
+                                          Icons.dark_mode,
+                                          color: (darkLight != true)
+                                              ? textDark
+                                              : buttonLight1,
+                                          size: 20,
+                                        ),
+                                ),
+                                // GestureDetector(
+                                //   onTap: () {
+                                //     setState(() {
+                                //       (darkLight = !darkLight);
+                                //     });
+                                //   },
+                                //   child: Container(
+                                //     color: (darkLight != true) ? navigasiDark : textDark,
+                                //     child: (darkLight != true)
+                                //         ? Icon(
+                                //       Icons.wb_sunny,
+                                //       color: (darkLight != true)
+                                //           ? textDark
+                                //           : buttonLight1,
+                                //       size: 20,
+                                //     )
+                                //         : Icon(
+                                //       Icons.dark_mode,
+                                //       color: (darkLight != true)
+                                //           ? textDark
+                                //           : buttonLight1,
+                                //       size: 20,
+                                //     ),
+                                //   ),
+                                // ),
+                                Builder(
+                                  builder: (context) => IconButton(
+                                    icon: Icon(
+                                      Icons.menu,
+                                      color: (darkLight != true)
+                                          ? textDark
+                                          : buttonLight1,
+                                    ),
+                                    onPressed: () =>
+                                        Scaffold.of(context).openEndDrawer(),
+                                    tooltip: MaterialLocalizations.of(context)
+                                        .openAppDrawerTooltip,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    //contoh
                     (showContoh != true)
                         ? Positioned(
-                            top: 0,
+                            top: 60,
                             child: Container(
                               width: MediaQuery.of(context).size.width,
                               padding: const EdgeInsets.all(15),
-                              color: (darkLight != true)
-                                  ? dasarDark
-                                  : contohLight,
+                              color: (darkLight != true) ? dasarDark : contohLight,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Image.asset('assets/parentoday.png',
-                                      scale: 2),
-                                  SizedBox(width: 10),
+                                  Image.asset(
+                                    'assets/parentoday.png',
+                                    scale: 2,
+                                  ),
+                                  const SizedBox(width: 10),
                                   Container(
                                     constraints:
                                         const BoxConstraints(maxWidth: 800),
@@ -327,9 +408,9 @@ class _HomePageState extends State<HomePage> {
                                               },
                                               child: Chip(
                                                 backgroundColor:
-                                                (darkLight != true)
-                                                    ? navigasiDark
-                                                    : buttonLight2,
+                                                    (darkLight != true)
+                                                        ? navigasiDark
+                                                        : buttonLight2,
                                                 label: Text(
                                                   'Menangani tantrum pada anak',
                                                   style: GoogleFonts.poppins()
@@ -368,16 +449,16 @@ class _HomePageState extends State<HomePage> {
                                                     .getHistory(widget.token);
                                               },
                                               child: Chip(
-                                                backgroundColor: (darkLight != true)
-                                                    ? navigasiDark
-                                                    : buttonLight2,
+                                                backgroundColor:
+                                                    (darkLight != true)
+                                                        ? navigasiDark
+                                                        : buttonLight2,
                                                 label: Text(
                                                   'Resep mpasi untuk bayi',
                                                   style: GoogleFonts.poppins()
                                                       .copyWith(
                                                     fontSize: 11,
-                                                    color:
-                                                    (darkLight != true)
+                                                    color: (darkLight != true)
                                                         ? textDark
                                                         : textLight3,
                                                   ),
@@ -412,9 +493,9 @@ class _HomePageState extends State<HomePage> {
                                               },
                                               child: Chip(
                                                 backgroundColor:
-                                                (darkLight != true)
-                                                    ? navigasiDark
-                                                    : buttonLight2,
+                                                    (darkLight != true)
+                                                        ? navigasiDark
+                                                        : buttonLight2,
                                                 label: Text(
                                                   'Cara mengatasi anak susah makan',
                                                   style: GoogleFonts.poppins()
@@ -437,10 +518,11 @@ class _HomePageState extends State<HomePage> {
                             ),
                           )
                         : Container(),
+                    //popupChat
                     Positioned(
-                      top: 0,
+                      top: 59,
                       child: Container(
-                        height: MediaQuery.of(context).size.height - 130,
+                        height: MediaQuery.of(context).size.height - 145,
                         padding: const EdgeInsets.only(bottom: 10),
                         child: SingleChildScrollView(
                           scrollDirection: Axis.vertical,
@@ -473,6 +555,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
+                    //bottomNavigasi
                     Positioned(
                       bottom: 0,
                       right: 0,
@@ -480,15 +563,14 @@ class _HomePageState extends State<HomePage> {
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
-                          color: (darkLight != true)
-                              ? navigasiDark
-                              : textDark,
+                          color: (darkLight != true) ? navigasiDark : textDark,
                           boxShadow: const [
                             BoxShadow(
                               color: Colors.grey,
                               spreadRadius: 1,
                               blurRadius: 1,
-                              offset: Offset(0, 0), // changes position of shadow
+                              offset:
+                                  Offset(0, 0), // changes position of shadow
                             ),
                           ],
                         ),
@@ -565,17 +647,19 @@ class _HomePageState extends State<HomePage> {
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                           width: 1,
-                                          color: (darkLight != true) ? textFieldDark : textFieldLight,
+                                          color: (darkLight != true)
+                                              ? textFieldDark
+                                              : textFieldLight,
                                         ),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(5)),
                                         borderSide: BorderSide(
-                                            width: 1,
-                                            color: (darkLight != true)
-                                                ? dasarDark
-                                                : warnaUtama,
+                                          width: 1,
+                                          color: (darkLight != true)
+                                              ? dasarDark
+                                              : warnaUtama,
                                         ),
                                       ),
                                       contentPadding: const EdgeInsets.only(
@@ -648,9 +732,8 @@ class _HomePageState extends State<HomePage> {
                               textAlign: TextAlign.center,
                               style: GoogleFonts.poppins().copyWith(
                                 fontWeight: FontWeight.w300,
-                                color: (darkLight != true)
-                                    ? textDark
-                                    : textLight4,
+                                color:
+                                    (darkLight != true) ? textDark : textLight4,
                                 fontSize: 11,
                               ),
                             ),
@@ -693,7 +776,9 @@ class _HomePageState extends State<HomePage> {
                                     backgroundImage: NetworkImage(
                                         snapshot.dataUser!.profile_photo_url ??
                                             ''),
-                                    backgroundColor: (darkLight != true) ? navigasiDark : textDark,
+                                    backgroundColor: (darkLight != true)
+                                        ? navigasiDark
+                                        : textDark,
                                   ),
                                   const SizedBox(width: 10),
                                   Column(
@@ -739,9 +824,10 @@ class _HomePageState extends State<HomePage> {
                                       : textDark,
                                   child: Image.asset(
                                     'assets/edit.png',
-                                    scale: 2.5, color: (darkLight != true)
-                                      ? textDark
-                                      : buttonLight1,
+                                    scale: 2.5,
+                                    color: (darkLight != true)
+                                        ? textDark
+                                        : buttonLight1,
                                   ),
                                 ),
                               ),
@@ -864,19 +950,20 @@ class _HomePageState extends State<HomePage> {
                     ),
                     GestureDetector(
                       onTap: () async {
-                        // setState(() {
-                        //   isLoading = true;
-                        // });
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                                backgroundColor: (darkLight != true) ? dasarDark : textDark,
+                                backgroundColor:
+                                    (darkLight != true) ? dasarDark : textDark,
                                 content: Text(
                                   'Yakin akan keluar?',
-                                  style: GoogleFonts.poppins().copyWith(fontSize: 12, color: (darkLight != true)
-                                      ? textDark
-                                      : textLight5,),
+                                  style: GoogleFonts.poppins().copyWith(
+                                    fontSize: 12,
+                                    color: (darkLight != true)
+                                        ? textDark
+                                        : textLight5,
+                                  ),
                                 ),
                                 actions: <Widget>[
                                   TextButton(
@@ -921,19 +1008,25 @@ class _HomePageState extends State<HomePage> {
                             left: 15, top: 10, bottom: 10),
                         color: (darkLight != true) ? navigasiDark : textDark,
                         child: Row(
-                                children: [
-                                  Icon(Icons.logout, size: 18, color: (darkLight != true) ? textDark : textLight3,),
-                                  const SizedBox(width: 10),
-                                  Text(
-                                    'Sign Out',
-                                    style: GoogleFonts.poppins().copyWith(
-                                      fontWeight: FontWeight.w300,
-                                      color: (darkLight != true) ? textDark : textLight3,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ],
+                          children: [
+                            Icon(
+                              Icons.logout,
+                              size: 18,
+                              color:
+                                  (darkLight != true) ? textDark : textLight3,
+                            ),
+                            const SizedBox(width: 10),
+                            Text(
+                              'Sign Out',
+                              style: GoogleFonts.poppins().copyWith(
+                                fontWeight: FontWeight.w300,
+                                color:
+                                    (darkLight != true) ? textDark : textLight3,
+                                fontSize: 12,
                               ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

@@ -69,7 +69,7 @@ class _list_historyState extends State<list_history> {
                 constraints: const BoxConstraints(minWidth: 232),
                 color: (darkLight != true) ? navigasiDark : textDark,
                 width: MediaQuery.of(context).size.width - 1208,
-                padding: const EdgeInsets.all(5),
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
