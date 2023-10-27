@@ -22,5 +22,3 @@ import '../pages/pages.dart';
 import '../theme/color.dart';
 
 part 'chat_card.dart';
-part 'coba.dart';
-// part 'tooltip_text.dart';
