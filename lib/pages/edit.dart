@@ -121,6 +121,7 @@ class _editState extends State<edit> {
             color: (darkLight != true) ? textDark : textLight7,
           ),
         ),
+        centerTitle: true,
       ),
       body: Container(
         alignment: Alignment.center,
@@ -131,68 +132,87 @@ class _editState extends State<edit> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 100),
-              Stack(
-                fit: StackFit.loose,
-                alignment: Alignment.topCenter,
-                children: [
-                  Positioned(
-                    child: _bytesData != null
-                        ? Container(
-                            width: 135,
-                            height: 135,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100),
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: MemoryImage(_bytesData!),
-                              ),
-                            ),
-                          )
-                        : (widget.dataUser.profile_photo_url ==
-                                "https://dashboard.parentoday.com/storage/")
-                            ? Container(
-                                width: 135,
-                                height: 135,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(100),
-                                  image: const DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: AssetImage('assets/mom.png'),
-                                  ),
-                                ),
-                              )
-                            : Container(
-                                width: 135,
-                                height: 135,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(100),
-                                  image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: NetworkImage(
-                                        widget.dataUser.profile_photo_url ?? ''),
-                                  ),
+              SizedBox(
+                // color: Colors.white,
+                height: 135,
+                width: 135,
+                child: Stack(
+                  // fit: StackFit.loose,
+                  alignment: Alignment.topCenter,
+                  children: [
+                    Positioned(
+                      child: _bytesData != null
+                          ? Container(
+                              alignment: Alignment.center,
+                              width: 135,
+                              height: 135,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: MemoryImage(_bytesData!),
                                 ),
                               ),
-                  ),
-                  Positioned(
-                    bottom: 5,
-                    right: 5,
-                    child: GestureDetector(
-                      onTap: () {
-                        startWebFilePicker();
-                      },
-                      child: Container(
-                        width: 30,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color: (darkLight != true) ? navigasiDark : warnaUtama,
+                            )
+                          : (widget.dataUser.profile_photo_url ==
+                                  "https://dashboard.parentoday.com/storage/")
+                              ? Container(
+                                  alignment: Alignment.center,
+                                  width: 135,
+                                  height: 135,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100),
+                                    image: const DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: AssetImage('assets/mom.png'),
+                                    ),
+                                  ),
+                                )
+                              : ImageNetwork(
+                                onPointer: true,
+                                debugPrint: false,
+                                fullScreen: false,
+                                fitAndroidIos: BoxFit.cover,
+                                fitWeb: BoxFitWeb.cover,
+                                onLoading: Center(
+                                  child: CircularProgressIndicator(
+                                    color: (dasarLight != true)
+                                        ? textDark
+                                        : warnaUtama,
+                                  ),
+                                ),
+                                onError: Image.asset('assets/mom.png'),
+                                image: widget.dataUser.profile_photo_url ?? '',
+                                height: 135,
+                                width: 135,
+                                curve: Curves.fastLinearToSlowEaseIn,
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                    ),
+                    Positioned(
+                      bottom: 5,
+                      right: 5,
+                      child: GestureDetector(
+                        onTap: () {
+                          startWebFilePicker();
+                        },
+                        child: Container(
+                          width: 30,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            borderRadius:
+                            BorderRadius.circular(50),
+                            color: (darkLight != true)
+                                ? navigasiDark
+                                : warnaUtama,
+                          ),
+                          child: Icon(Icons.edit,
+                              color: textDark, size: 18),
                         ),
-                        child: Icon(Icons.edit, color: textDark, size: 18),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               const SizedBox(height: 30),
               SizedBox(
@@ -211,13 +231,15 @@ class _editState extends State<edit> {
                             style: GoogleFonts.poppins().copyWith(
                               fontWeight: FontWeight.bold,
                               fontSize: 12,
-                              color: (darkLight != true) ? textDark : textLight7,
+                              color:
+                                  (darkLight != true) ? textDark : textLight7,
                             ),
                           ),
                           const SizedBox(height: 5),
                           TextFormField(
                             style: TextStyle(
-                              color: (darkLight != true) ? textDark : textLight5,
+                              color:
+                                  (darkLight != true) ? textDark : textLight5,
                             ),
                             cursorColor:
                                 (darkLight != true) ? textDark : warnaUtama,
@@ -237,16 +259,18 @@ class _editState extends State<edit> {
                                       : border,
                                 ),
                               ),
-                              fillColor:
-                                  (darkLight != true) ? textFieldDark : textDark,
+                              fillColor: (darkLight != true)
+                                  ? textFieldDark
+                                  : textDark,
                               filled: true,
                               focusedBorder: OutlineInputBorder(
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(5)),
                                 borderSide: BorderSide(
                                   width: 1,
-                                  color:
-                                      (darkLight != true) ? textDark : warnaUtama,
+                                  color: (darkLight != true)
+                                      ? textDark
+                                      : warnaUtama,
                                 ),
                               ),
                               contentPadding: const EdgeInsets.only(
@@ -281,7 +305,8 @@ class _editState extends State<edit> {
                         width: MediaQuery.of(context).size.width - 78,
                         constraints: const BoxConstraints(maxWidth: 500),
                         decoration: BoxDecoration(
-                          color: (darkLight != true) ? navigasiDark : warnaUtama,
+                          color:
+                              (darkLight != true) ? navigasiDark : warnaUtama,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: (isLoading = true)

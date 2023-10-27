@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:parentoday_ai/cubits/listHistory_cubit.dart';
 import 'package:parentoday_ai/pages/pages.dart';
+import 'package:parentoday_ai/theme/color.dart';
 import 'package:supercharged/supercharged.dart';
 
 import 'cubits/ai_cubit.dart';
@@ -13,13 +14,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: const FirebaseOptions(
-        apiKey: "AIzaSyAg6n3kIS7eiabH4a-MtpL5eoDVE90EB84",
-        authDomain: "master-ai-79740.firebaseapp.com",
-        projectId: "master-ai-79740",
-        storageBucket: "master-ai-79740.appspot.com",
-        messagingSenderId: "195874678073",
-        appId: "1:195874678073:web:67479ab569f676a84034e8",
-        measurementId: "G-JSGV31T0LN"
+      apiKey: "AIzaSyBN7s37HC8tyzo-b-XmKP6qEj8fyAk_X-g",
+      authDomain: "timun-app.firebaseapp.com",
+      projectId: "timun-app",
+      storageBucket: "timun-app.appspot.com",
+      messagingSenderId: "475090703789",
+      appId: "1:475090703789:web:77296c36abcd066b3dbd24",
+      measurementId: "G-G8R2JKNE2Z",
     ),
   );
   runApp(const MyApp());

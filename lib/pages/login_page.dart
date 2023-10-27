@@ -8,8 +8,20 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final PrefServices _prefServices = PrefServices();
   bool isLoading = false;
-
+  @override
+  void initState() {
+    super.initState();
+    _prefServices.readCache('emailGoogle').then((value) {
+      print(value.toString());
+      if (value != null) {
+        return Get.to(HomePage(value));
+      } else {
+        return LoginPage();
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +36,7 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 20),
             Text(
               'Halo Bunda,',
+              textAlign: TextAlign.center,
               style: GoogleFonts.poppins().copyWith(
                 fontWeight: FontWeight.bold,
                 color: (darkLight != true) ? textDark : textLight9,
@@ -33,6 +46,7 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 5),
             Text(
               'Silahkan Login atau Mendaftar untuk melanjutkan fitur parentoday.ai',
+              textAlign: TextAlign.center,
               style: GoogleFonts.poppins().copyWith(
                 fontWeight: FontWeight.w300,
                 color: (darkLight != true) ? textDark : textLight10,
@@ -73,30 +87,32 @@ class _LoginPageState extends State<LoginPage> {
                   width: MediaQuery.of(context).size.width - 78,
                   child: (isLoading == true)
                       ? Center(
-                          child: SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2.5,
-                              color: (darkLight != true) ? textDark : warnaUtama,
-                            ),
-                          ),
-                        )
+                    child: SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2.5,
+                        color: (darkLight != true) ? textDark : warnaUtama,
+                      ),
+                    ),
+                  )
                       : Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset('assets/google.png', scale: 2),
-                            const SizedBox(width: 5),
-                            Text(
-                              'Masuk/Daftar dengan Google',
-                              style: GoogleFonts.poppins().copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10,
-                                color: (darkLight != true) ? textDark : textLight11,
-                              ),
-                            ),
-                          ],
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset('assets/google.png', scale: 2),
+                      const SizedBox(width: 5),
+                      Text(
+                        'Masuk/Daftar dengan Google',
+                        style: GoogleFonts.poppins().copyWith(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10,
+                          color: (darkLight != true)
+                              ? textDark
+                              : textLight11,
                         ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

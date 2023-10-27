@@ -13,8 +13,8 @@ class list_history extends StatefulWidget {
 
 class _list_historyState extends State<list_history> {
   void deleted() async {
-    Uri url_ = Uri.parse(
-        'https://dashboard.parentoday.com/api/chat/ai/history/delete');
+    Uri url_ = Uri.parse('https://dashboard.parentoday.com/api/chat/ai/history/delete');
+
     var res = await http.post(
       url_,
       body: {
@@ -55,25 +55,38 @@ class _list_historyState extends State<list_history> {
         Row(
           children: [
             GestureDetector(
-              onTap: () {
+              onTap: () async {
                 setState(() {
                   selectedRandomId = widget.history!.random_id;
                   widget.isShowContoh!(true);
+
+                  showChat = false;
                 });
+
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                await prefs.setString('selectedRandomId', selectedRandomId!);
+
                 context
                     .read<AiCubit>()
                     .getAi(widget.token, widget.history!.random_id ?? '');
+
+                showChat = true;
                 Navigator.of(context).pop();
               },
               child: Container(
                 constraints: const BoxConstraints(minWidth: 232),
                 color: (darkLight != true) ? navigasiDark : textDark,
                 width: MediaQuery.of(context).size.width - 1208,
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(Icons.chat, size: 20, color: (darkLight != true) ? textDark : textLight3,),
+                    Icon(
+                      Icons.chat,
+                      size: 20,
+                      color: (darkLight != true) ? textDark : textLight3,
+                    ),
                     const SizedBox(width: 7),
                     Container(
                       constraints: const BoxConstraints(minWidth: 195),
@@ -99,7 +112,8 @@ class _list_historyState extends State<list_history> {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      backgroundColor: (darkLight != true) ? dasarDark : textDark,
+                        backgroundColor:
+                            (darkLight != true) ? dasarDark : textDark,
                         content: Text(
                           'Yakin mau menghapus history?',
                           style: GoogleFonts.poppins().copyWith(
@@ -113,7 +127,8 @@ class _list_historyState extends State<list_history> {
                               'Tidak',
                               style: GoogleFonts.poppins().copyWith(
                                 fontSize: 12,
-                                color: (darkLight != true) ? textDark : warnaUtama,
+                                color:
+                                    (darkLight != true) ? textDark : warnaUtama,
                               ),
                             ),
                             onPressed: () {
@@ -125,7 +140,8 @@ class _list_historyState extends State<list_history> {
                               'Ya',
                               style: GoogleFonts.poppins().copyWith(
                                 fontSize: 12,
-                                color: (darkLight != true) ? textDark : warnaUtama,
+                                color:
+                                    (darkLight != true) ? textDark : warnaUtama,
                               ),
                             ),
                             onPressed: () {
@@ -139,7 +155,9 @@ class _list_historyState extends State<list_history> {
               child: Container(
                 color: (darkLight != true) ? navigasiDark : textDark,
                 child: Icon(
-                  (darkLight != true) ? Icons.delete_outline_sharp : Icons.delete,
+                  (darkLight != true)
+                      ? Icons.delete_outline_sharp
+                      : Icons.delete,
                   color: (darkLight != true) ? textDark : textLight3,
                   size: 18,
                 ),

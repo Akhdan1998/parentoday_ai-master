@@ -29,12 +29,13 @@ class DataLogReg {
   String? email;
   String? nomor;
 
-  DataLogReg(
-      {this.user_id,
-      this.nama,
-      this.profile_photo_url,
-      this.email,
-      this.nomor});
+  DataLogReg({
+    this.user_id,
+    this.nama,
+    this.profile_photo_url,
+    this.email,
+    this.nomor,
+  });
 
   DataLogReg.fromJson(Map<String, dynamic> json) {
     user_id = json['user_id'];

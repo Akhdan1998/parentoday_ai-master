@@ -52,6 +52,7 @@ Future<User?> signInWithGoogle() async {
       }
     }
   }
+
   if (user != null) {
     uid = user.uid;
     name = user.displayName;
