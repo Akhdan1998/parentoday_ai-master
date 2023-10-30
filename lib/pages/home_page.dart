@@ -238,10 +238,10 @@ class _HomePageState extends State<HomePage> {
     }
     if (screenWidth >= 768) {
       //desktop
-      bottomPosition = 10;
+      bottomPosition = 0;
     } else {
       //mobile
-      bottomPosition = 35;
+      bottomPosition = 0;
     }
     if (screenWidth >= 768) {
       //desktop
@@ -709,20 +709,20 @@ class _HomePageState extends State<HomePage> {
                           top: 11, bottom: 11, right: 16, left: 16),
                       child: Column(
                         children: [
-                          (show == true)
-                              ? Text(
-                            'Sebentar ya Moms, kami sedang mencarikan jawaban dari pertanyaan kamu...',
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.poppins().copyWith(
-                              fontWeight: FontWeight.w300,
-                              color: (darkLight != true)
-                                  ? textDark
-                                  : textLight4,
-                              fontSize: 11,
-                            ),
-                          )
-                              : const SizedBox(),
-                          const SizedBox(height: 5),
+                          // (show == true)
+                          //     ? Text(
+                          //   'Sebentar ya Moms, kami sedang mencarikan jawaban dari pertanyaan kamu...',
+                          //   textAlign: TextAlign.center,
+                          //   style: GoogleFonts.poppins().copyWith(
+                          //     fontWeight: FontWeight.w300,
+                          //     color: (darkLight != true)
+                          //         ? textDark
+                          //         : textLight4,
+                          //     fontSize: 11,
+                          //   ),
+                          // )
+                          //     : const SizedBox(),
+                          // const SizedBox(height: 5),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
